@@ -43,6 +43,7 @@ void AppWindow::updateQuadPosition()
 
 	//cc.m_world *= temp;
 
+
 	cc.m_world.setScale(Vector3D(m_scale_cube, m_scale_cube, m_scale_cube));
 
 	temp.setIdentity();
