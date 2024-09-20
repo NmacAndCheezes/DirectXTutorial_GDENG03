@@ -4,6 +4,7 @@
 #include "Matrix4x4.h"
 #include "InputSystem.h"
 #include <iostream>
+#include "EngineTime.h"
 
 struct vertex 
 {
@@ -26,16 +27,16 @@ void AppWindow::updateQuadPosition()
 	constant cc;
 	cc.m_time = ::GetTickCount64();
 
-	m_delta_pos += m_delta_time / 10.0f;
+	m_delta_pos += EngineTime::get()->getDT() / 10.0f;
 
 	if (m_delta_pos > 1.0f)
 		m_delta_pos = 0;
 
 	
 	Matrix4x4 temp;
-	cc.m_world.setTranslation(Vector3D::lerp(Vector3D(-2,-2,0), Vector3D(2,2,0), m_delta_pos));
+	//cc.m_world.setTranslation(Vector3D::lerp(Vector3D(-2,-2,0), Vector3D(2,2,0), m_delta_pos));
 	
-	m_delta_scale += m_delta_time / 0.55f;
+	m_delta_scale += EngineTime::get()->getDT() / 0.55f;
 
 	//temp.setScale(Vector3D::lerp(Vector3D(0.5, 0.5, 0), Vector3D(1.0f, 1.0f, 0), (sin(m_delta_scale) + 1.0f)/2.0f));
 	
@@ -43,7 +44,7 @@ void AppWindow::updateQuadPosition()
 
 	//cc.m_world *= temp;
 
-
+	/*
 	cc.m_world.setScale(Vector3D(m_scale_cube, m_scale_cube, m_scale_cube));
 
 	temp.setIdentity();
@@ -57,8 +58,26 @@ void AppWindow::updateQuadPosition()
 	temp.setIdentity();
 	temp.setRotationX(m_rot_x);
 	cc.m_world *= temp;
+	*/
 
-	cc.m_view.setIdentity();
+	cc.m_world.setIdentity();
+
+	Matrix4x4 world_cam;
+	world_cam.setIdentity();
+
+	temp.setIdentity();
+	temp.setRotationX(m_rot_x);
+	world_cam *= temp;
+
+	temp.setIdentity();
+	temp.setRotationY(m_rot_y);
+	world_cam *= temp;
+
+	world_cam.setTranslation(Vector3D(0, 0, -2));
+
+	world_cam.inverse();
+
+	cc.m_view = world_cam;
 	cc.m_proj.setOrthoLH
 	(
 		(this->getClientWindowRect().right - this->getClientWindowRect().left) / 400.0f,
@@ -234,10 +253,7 @@ void AppWindow::onUpdate()
 	GraphicsEngine::get()->getImmediateDeviceContext()->drawIndexedTriangleList(m_ib->getSizeIndexList(), 0, 0);
 	m_swap_chain->present(true);
 
-	m_old_delta = m_new_delta;
-	m_new_delta = ::GetTickCount64();
-
-	m_delta_time = m_old_delta ? ((m_new_delta - m_old_delta) / 1000.0f) : 0;
+	EngineTime::get()->update();
 }
 
 void AppWindow::onDestroy()
@@ -267,20 +283,20 @@ void AppWindow::onKeyDown(int key)
 	const float speed = 3.714;
 	if (key == 'W')
 	{
-		m_rot_x += speed * m_delta_time;
+		m_rot_x += speed * EngineTime::get()->getDT();
 	}
 	else if (key == 'S')
 	{
-		m_rot_x -= speed * m_delta_time;
+		m_rot_x -= speed * EngineTime::get()->getDT();
 	}
 
 	if (key == 'A')
 	{
-		m_rot_y += speed * m_delta_time;
+		m_rot_y += speed * EngineTime::get()->getDT();
 	}
 	else if (key == 'D')
 	{
-		m_rot_y -= speed * m_delta_time;
+		m_rot_y -= speed * EngineTime::get()->getDT();
 	}
 }
 
@@ -291,8 +307,8 @@ void AppWindow::onKeyUp(int key)
 
 void AppWindow::onMouseMove(const Point& delta_mouse_pos)
 {
-	m_rot_x -= delta_mouse_pos.m_y * m_delta_time;
-	m_rot_y -= delta_mouse_pos.m_x * m_delta_time;
+	m_rot_x -= delta_mouse_pos.m_y * EngineTime::get()->getDT();
+	m_rot_y -= delta_mouse_pos.m_x * EngineTime::get()->getDT();
 }
 
 void AppWindow::onLeftMouseDown(const Point& delta_mouse_pos)
