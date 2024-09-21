@@ -19,6 +19,9 @@
     <Filter Include="GameEngine\InputSystem">
       <UniqueIdentifier>{94c829e5-0301-49cc-9eca-8533da179e1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\GameObject">
+      <UniqueIdentifier>{f8a3d743-b5f1-44db-b1fa-a70d28f688af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,13 +60,17 @@
     <ClCompile Include="InputSystem.cpp">
       <Filter>GameEngine\InputSystem</Filter>
     </ClCompile>
-    <ClCompile Include="AGameObject.cpp">
-      <Filter>GameEngine\GraphicsEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer3D.cpp" />
-    <ClCompile Include="Component.cpp" />
     <ClCompile Include="EngineTime.cpp">
       <Filter>GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="AGameObject.cpp">
+      <Filter>GameEngine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>GameEngine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>GameEngine\GraphicsEngine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,16 +119,20 @@
     <ClInclude Include="Point.h">
       <Filter>GameEngine\Math</Filter>
     </ClInclude>
-    <ClInclude Include="AGameObject.h">
-      <Filter>GameEngine\GraphicsEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer3D.h" />
-    <ClInclude Include="Component.h" />
     <ClInclude Include="EngineTime.h">
       <Filter>GameEngine</Filter>
     </ClInclude>
     <ClInclude Include="Vector4D.h">
       <Filter>GameEngine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="AGameObject.h">
+      <Filter>GameEngine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>GameEngine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>GameEngine\GraphicsEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
