@@ -57,6 +57,14 @@
     <ClCompile Include="InputSystem.cpp">
       <Filter>GameEngine\InputSystem</Filter>
     </ClCompile>
+    <ClCompile Include="AGameObject.cpp">
+      <Filter>GameEngine\GraphicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer3D.cpp" />
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="EngineTime.cpp">
+      <Filter>GameEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -102,6 +110,17 @@
       <Filter>GameEngine\InputSystem</Filter>
     </ClInclude>
     <ClInclude Include="Point.h">
+      <Filter>GameEngine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="AGameObject.h">
+      <Filter>GameEngine\GraphicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer3D.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="EngineTime.h">
+      <Filter>GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector4D.h">
       <Filter>GameEngine\Math</Filter>
     </ClInclude>
   </ItemGroup>
