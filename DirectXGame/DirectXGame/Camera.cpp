@@ -21,14 +21,15 @@ struct constant
 	unsigned int m_time = 0;
 };
 
-void Camera::init(AppWindow* window)
+Camera::Camera(AppWindow* window) : m_window(window)
 {
-	m_window = window;
-	m_world_cam.setTranslation(Vector3D(0,0,-2));
+	m_world_cam.setTranslation(Vector3D(0, 0, -2));
 }
 
 void Camera::update()
 {
+	AGameObject::update();
+
 	constant cc;
 	cc.m_time = ::GetTickCount64();
 
@@ -76,6 +77,11 @@ void Camera::update()
 
 	GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_window->getVertexShader(), m_window->getConstantBuffer());
 	GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_window->getPixelShader(), m_window->getConstantBuffer());
+}
+
+void Camera::release()
+{
+	AGameObject::release();
 }
 
 void Camera::onKeyDown(int key)

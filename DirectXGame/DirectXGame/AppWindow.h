@@ -44,7 +44,7 @@ private:
 	IndexBuffer* m_ib = NULL; //make this a gameObject
 
 private:
-	Camera* cam;
+	Camera* cam = NULL;
 	//Matrix4x4 m_world_cam;
 
 //private: //events list
