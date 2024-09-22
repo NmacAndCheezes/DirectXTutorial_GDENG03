@@ -47,7 +47,8 @@ private:
 	Camera* cam = NULL;
 	//Matrix4x4 m_world_cam;
 
-//private: //events list
-	//std::list<InputListener*> inputListnersFocusAndKillFocus;
+private: //events list
+	std::list<InputListener*> eventsOnFocus;
+	std::list<InputListener*> eventsOnKillFocus;
 };
 

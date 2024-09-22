@@ -11,7 +11,7 @@ class IndexBuffer;
 class Renderer : public Component
 {
 public:
-	Renderer() {}
+	Renderer(AGameObject* obj);
 	virtual void update() override;
 	virtual void release() override;
 	~Renderer() {}
@@ -28,5 +28,7 @@ protected:
 		Vector3D color;
 		Vector3D color1;
 	};
+
+
 };
 

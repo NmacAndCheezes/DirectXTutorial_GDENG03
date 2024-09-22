@@ -7,6 +7,10 @@
 #include "GraphicsEngine.h"
 #include "DeviceContext.h"
 
+Renderer::Renderer(AGameObject* obj) : Component(obj)
+{
+}
+
 void Renderer::update()
 {
 	//SET DEFAULT SHADER IN THE GRAPHICS PIPELINE TO BE ABLE TO DRAW

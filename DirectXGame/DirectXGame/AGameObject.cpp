@@ -1,6 +1,10 @@
 #include "AGameObject.h"
 #include "Component.h"
 
+AGameObject::AGameObject() : m_position(Vector3D()) {}
+
+AGameObject::AGameObject(const Vector3D& position) : m_position(position) { }
+
 void AGameObject::update()
 {
 	for (auto c : m_component_list)
@@ -26,4 +30,9 @@ void AGameObject::attachComponent(Component* component)
 void AGameObject::detachComponent(Component* component)
 {
 	m_component_list.remove(component);
+}
+
+Vector3D AGameObject::position()
+{
+	return m_position;
 }

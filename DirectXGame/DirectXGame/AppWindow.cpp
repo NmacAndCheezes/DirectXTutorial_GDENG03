@@ -7,6 +7,7 @@
 #include "EngineTime.h"
 #include "AGameObjectManager.h"
 #include "CubeRenderer.h"
+#include "Cube.h"
 
 struct vertex 
 {
@@ -46,11 +47,16 @@ void AppWindow::onCreate()
 	m_cb->load(&cc, sizeof(constant));
 #pragma endregion
 
-	AGameObject* obj = new AGameObject();
-	CubeRenderer* rend = new CubeRenderer();
-	obj->attachComponent(rend);
+	Cube* obj = new Cube(Vector3D(1.5f,0,0));
 	AGameObjectManager::get()->registerAGameObject(obj);
-#if 1
+
+	obj = new Cube(Vector3D(0, 0, 0));
+	AGameObjectManager::get()->registerAGameObject(obj);
+
+	obj = new Cube(Vector3D(-1.5, 0, 0));
+	AGameObjectManager::get()->registerAGameObject(obj);
+
+#if 0
 	//rectangle with a rainbow pixel shader.
 #if 0
 	vertex vertex_list[] =
@@ -183,18 +189,6 @@ void AppWindow::onUpdate()
 
 	AGameObjectManager::get()->update();
 
-#if 1
-	//SET DEFAULT SHADER IN THE GRAPHICS PIPELINE TO BE ABLE TO DRAW
-	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(m_vs);
-	GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(m_ps);
-	//SET THE VERTICES OF THE TRIANGLE TO DRAW
-	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
-	//SET THE INDICES OF THE TRIANGLE TO DRAW
-	GraphicsEngine::get()->getImmediateDeviceContext()->setIndexBuffer(m_ib);
-	// FINALLY DRAW THE TRIANGLE
-	GraphicsEngine::get()->getImmediateDeviceContext()->drawIndexedTriangleList(m_ib->getSizeIndexList(), 0, 0);
-#endif
-
 	m_swap_chain->present(true);
 
 	EngineTime::get()->update();
@@ -203,12 +197,7 @@ void AppWindow::onUpdate()
 void AppWindow::onDestroy()
 {
 	Window::onDestroy();
-	m_vb->release();
 	m_swap_chain->release();
-	m_vs->release();
-	m_ps->release();
-	m_ib->release();
-	m_cb->release();
 	GraphicsEngine::get()->release();
 	AGameObjectManager::get()->release();
 }

@@ -7,17 +7,18 @@
 #include "GraphicsEngine.h"
 #include "DeviceContext.h"
 #include "Vector3D.h"
+#include "AGameObject.h"
+#include <iostream>
 
-CubeRenderer::CubeRenderer()
+CubeRenderer::CubeRenderer(AGameObject* obj) : Renderer(obj)
 {
-
 #if 1
 	vertex vertex_list[] =
 	{
 		//X - Y - Z
 		//FRONT FACE
-		{Vector3D(-0.5f,-0.5f,-0.5f),    Vector3D(1,0,0),  Vector3D(0.2f,0,0) },
-		{Vector3D(-0.5f,0.5f,-0.5f),    Vector3D(1,1,0), Vector3D(0.2f,0.2f,0) },
+		{ Vector3D(-0.5f ,-0.5f,-0.5f),    Vector3D(1,0,0),  Vector3D(0.2f,0,0)},
+		{ Vector3D(-0.5f,0.5f,-0.5f),    Vector3D(1,1,0), Vector3D(0.2f,0.2f,0) },
 		{ Vector3D(0.5f,0.5f,-0.5f),   Vector3D(1,1,0),  Vector3D(0.2f,0.2f,0) },
 		{ Vector3D(0.5f,-0.5f,-0.5f),     Vector3D(1,0,0), Vector3D(0.2f,0,0) },
 
@@ -31,6 +32,17 @@ CubeRenderer::CubeRenderer()
 
 	m_vb = GraphicsEngine::get()->createVertexBuffer();
 	UINT size_list = ARRAYSIZE(vertex_list);
+	for (int i = 0; i < size_list; i++)
+	{
+		Vector3D position = vertex_list[i].position;
+
+		position.m_x += attachedObject->position().m_x;
+		position.m_y += attachedObject->position().m_y;
+		position.m_z += attachedObject->position().m_z;
+
+		vertex_list[i].position = position;
+		//std::cout << attachedObject->posX() << " " << attachedObject->posY() << " " << attachedObject->posZ() << " " << "\n";
+	}
 
 	unsigned int index_list[] =
 	{

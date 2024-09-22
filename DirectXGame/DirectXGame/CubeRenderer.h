@@ -4,7 +4,7 @@
 class CubeRenderer : public Renderer
 {
 public:
-	CubeRenderer();
+	CubeRenderer(AGameObject* obj);
 	virtual void update() override;
 	~CubeRenderer() {}
 };
