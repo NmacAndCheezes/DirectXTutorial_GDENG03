@@ -10,13 +10,14 @@
 #include "IndexBuffer.h"
 #include "InputListener.h"
 #include "Matrix4x4.h"
+#include "Camera.h"
 
-class AppWindow : public Window, public InputListener
+class AppWindow : public Window
 {
 public:
 	AppWindow() {};
 
-	void update();
+	//void update();
 
 	~AppWindow() {};
 
@@ -28,34 +29,26 @@ public:
 	virtual void onFocus() override;
 	virtual void onKillFocus() override;
 
-	//Inherited via InputListener
-	virtual void onKeyDown(int key) override;
-	virtual void onKeyUp(int key) override;
-	virtual void onMouseMove(const Point& mouse_pos) override;
-	virtual void onLeftMouseDown(const Point& delta_mouse_pos) override;
-	virtual void onLeftMouseUp(const Point& delta_mouse_pos) override;
-	virtual void onRightMouseDown(const Point& delta_mouse_pos) override;
-	virtual void onRightMouseUp(const Point& delta_mouse_pos) override;
+public: //getters
+	SwapChain* getSwapChain();
+	VertexShader* getVertexShader();
+	PixelShader* getPixelShader();
+	ConstantBuffer* getConstantBuffer();
 
 private:
 	SwapChain* m_swap_chain = NULL;
-	VertexBuffer* m_vb = NULL;
+	VertexBuffer* m_vb = NULL; //make this a gameObject
 	VertexShader* m_vs = NULL;
 	PixelShader* m_ps = NULL;
 	ConstantBuffer* m_cb = NULL;
-	IndexBuffer* m_ib = NULL;
+	IndexBuffer* m_ib = NULL; //make this a gameObject
 
 private:
-	float m_delta_pos = 0;
-	float m_delta_scale = 0;
-	float m_delta_rot = 0;
+	Camera* cam = NULL;
+	//Matrix4x4 m_world_cam;
 
-	float m_rot_x = 0.0f;
-	float m_rot_y = 0.0f;
-
-	float m_scale_cube = 1.0f;
-	float m_forward = 0.0f;
-	float m_right = 0.0f;
-	Matrix4x4 m_world_cam;
+private: //events list
+	std::list<InputListener*> eventsOnFocus;
+	std::list<InputListener*> eventsOnKillFocus;
 };
 
