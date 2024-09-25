@@ -10,7 +10,7 @@
 #include "AGameObject.h"
 #include <iostream>
 
-CubeRenderer::CubeRenderer(AGameObject* obj) : Renderer(obj)
+CubeRenderer::CubeRenderer(AGameObject* obj) : Renderer3D(obj)
 {
 #if 1
 	vertex vertex_list[] =
@@ -98,5 +98,5 @@ CubeRenderer::CubeRenderer(AGameObject* obj) : Renderer(obj)
 
 void CubeRenderer::update()
 {
-	Renderer::update();
+	Renderer3D::update();
 }

@@ -1,7 +1,7 @@
 #pragma once
-#include "Renderer.h"
+#include "Renderer3D.h"
 
-class CubeRenderer : public Renderer
+class CubeRenderer : public Renderer3D
 {
 public:
 	CubeRenderer(AGameObject* obj);

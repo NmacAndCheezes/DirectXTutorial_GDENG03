@@ -12,6 +12,7 @@
 #include <d3dcompiler.h>
 #include <iostream>
 
+GraphicsEngine* GraphicsEngine::sharedInstance = nullptr;
 bool GraphicsEngine::init()
 {
 #pragma region Driver
@@ -143,8 +144,19 @@ IndexBuffer* GraphicsEngine::createIndexBuffer()
 
 GraphicsEngine* GraphicsEngine::get()
 {
-	static GraphicsEngine engine;
-	return &engine;
+	return sharedInstance;
+}
+
+void GraphicsEngine::initialize()
+{
+	sharedInstance = new GraphicsEngine();
+	sharedInstance->init();
+}
+
+void GraphicsEngine::destroy()
+{
+	if (sharedInstance != nullptr)
+		sharedInstance->release();
 }
 
 bool GraphicsEngine::compileVertexShader(const wchar_t* file_name, const char* entry_point_name, 

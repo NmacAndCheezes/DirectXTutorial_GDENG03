@@ -13,10 +13,9 @@ class IndexBuffer;
 class GraphicsEngine
 {
 public:
-	GraphicsEngine() {}
 	bool init();
 	bool release();
-	~GraphicsEngine() {}
+
 public: //Get other classes
 	SwapChain* createSwapChain();
 	DeviceContext* getImmediateDeviceContext();
@@ -27,7 +26,14 @@ public: //Get other classes
 	IndexBuffer* createIndexBuffer();
 public: //singleton
 	static GraphicsEngine* get();
-
+	static void initialize();
+	static void destroy();
+private:
+	static GraphicsEngine* sharedInstance;
+	GraphicsEngine() {}
+	GraphicsEngine(GraphicsEngine const&) {};
+	GraphicsEngine& operator=(GraphicsEngine const&) {};
+	~GraphicsEngine() {}
 public: //shaders
 	//vertex shader
 	bool compileVertexShader(const wchar_t* file_name, const char* entry_point_name, void** shader_byte_code, size_t* byte_code_size);

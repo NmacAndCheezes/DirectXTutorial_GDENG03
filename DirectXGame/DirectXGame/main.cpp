@@ -1,11 +1,17 @@
 #include "AppWindow.h"
+#include "GraphicsEngine.h"
 
 int main()
 {
-	AppWindow app;
-	if (app.init()) {
-		while (app.isRunning()) {
-			app.broadcast();
+	GraphicsEngine::initialize();
+	AppWindow* app = new AppWindow();
+
+	if (app->init()) {
+		while (app->isRunning()) {
+			app->broadcast();
 		}
 	}
+	delete app;
+	
+	return 0;
 }

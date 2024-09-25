@@ -87,7 +87,7 @@
     <ClCompile Include="Component.cpp">
       <Filter>GameEngine\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
+    <ClCompile Include="Renderer3D.cpp">
       <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="CubeRenderer.cpp">
@@ -95,6 +95,13 @@
     </ClCompile>
     <ClCompile Include="Quad.cpp">
       <Filter>GameEngine\GraphicsEngine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="QuadRenderer.cpp">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer2D.cpp">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -164,7 +171,7 @@
     <ClInclude Include="Component.h">
       <Filter>GameEngine\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
+    <ClInclude Include="Renderer3D.h">
       <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="CubeRenderer.h">
@@ -173,12 +180,22 @@
     <ClInclude Include="Quad.h">
       <Filter>GameEngine\GraphicsEngine\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerController.h" />
+    <ClInclude Include="QuadRenderer.h">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer2D.h">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
       <Filter>App</Filter>
     </FxCompile>
     <FxCompile Include="PixelShader.hlsl">
+      <Filter>App</Filter>
+    </FxCompile>
+    <FxCompile Include="ShapeVertexShader.hlsl">
       <Filter>App</Filter>
     </FxCompile>
   </ItemGroup>

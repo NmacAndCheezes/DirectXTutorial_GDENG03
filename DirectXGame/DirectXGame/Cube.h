@@ -2,11 +2,6 @@
 
 #include "AGameObject.h"
 
-class VertexBuffer;
-class IndexBuffer;
-class VertexShader;
-class PixelShader;
-
 class Cube : public AGameObject
 {
 public:
