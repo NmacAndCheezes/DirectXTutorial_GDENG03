@@ -59,6 +59,7 @@ void Camera::update()
 
 	cc.m_view = world_cam;
 	
+
 	/*
 	cc.m_proj.setOrthoLH
 	(
@@ -77,6 +78,8 @@ void Camera::update()
 
 	GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_window->getVertexShader(), m_window->getConstantBuffer());
 	GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_window->getPixelShader(), m_window->getConstantBuffer());
+
+	cc.m_proj.printMatrix();
 }
 
 void Camera::release()
