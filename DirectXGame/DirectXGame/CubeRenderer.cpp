@@ -138,5 +138,5 @@ void CubeRenderer::update()
 		deviceContext->drawTriangleList(this->m_ib->getSizeIndexList(), 0);
 	}
 		
-	}
+}
 	

@@ -23,7 +23,7 @@ struct constant
 
 Camera::Camera(AppWindow* window, std::string name) : AGameObject(name), m_window(window)
 {
-	
+	updateViewMatrix();
 
 	//m_world_cam.setTranslation(Vector3D(0, 0, -2));
 }
@@ -32,7 +32,7 @@ void Camera::update()
 {
 	AGameObject::update();
 
-	
+	camera_view_matrix.printMatrix();
 }
 
 void Camera::updateViewMatrix()
@@ -54,10 +54,10 @@ void Camera::updateViewMatrix()
 	temp.setRotationY(m_rot_y);
 	world_cam *= temp;
 
-	//Vector3D new_pos = m_world_cam.getTranslation() + world_cam.getZDirection() * (m_forward * 0.3f);
+	Vector3D new_pos = camera_view_matrix.getTranslation() + world_cam.getZDirection() * (m_forward * 0.3f);
 
-	//new_pos = new_pos + world_cam.getXDirection() * (m_right * 0.3f);
-	temp.setTranslation(m_local_position);
+	new_pos = new_pos + world_cam.getXDirection() * (m_right * 0.3f);
+	//temp.setTranslation(m_local_position);
 	world_cam *= temp;
 
 

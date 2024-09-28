@@ -44,72 +44,14 @@ void AppWindow::onCreate()
 
 	Cube* cube = new Cube("Cube");
 	AGameObjectManager::get()->registerAGameObject(cube);
-
-#if 0
-	//rectangle with a rainbow pixel shader.
-#if 0
-	vertex vertex_list[] =
-	{
-		//X - Y - Z
-		//FRONT FACE
-		{Vector3D(-0.5f,-0.5f,-0.5f),    Vector3D(1,0,0),  Vector3D(1,0,0) },
-		{Vector3D(-0.5f,0.5f,-0.5f),    Vector3D(0,1,0),  Vector3D(0,1,0) },
-		{ Vector3D(0.5f,0.5f,-0.5f),   Vector3D(0,0,1),  Vector3D(0,0,1) },
-		{ Vector3D(0.5f,-0.5f,-0.5f),     Vector3D(1,1,0), Vector3D(1,1,0) },
-	};
-#endif
-
-	//triangle with a rainbow pixel shader
-#if 0
-	vertex vertex_list[] =
-	{
-		//X - Y - Z
-		//FRONT FACE
-		{Vector3D(0.0f,0.5f,0.0f),    Vector3D(1,0,0),  Vector3D(1,0,0) },
-		{Vector3D(-0.5f,-0.5f,-0.5f),    Vector3D(0,1,0),  Vector3D(0,1,0) },
-		{ Vector3D(0.5f,-0.5f,-0.5f),   Vector3D(0,0,1),  Vector3D(0,0,1) },
-		//{ Vector3D(0.5f,-0.5f,-0.5f),     Vector3D(1,1,0), Vector3D(1,1,0) },
-	};
-#endif
-
-	//rectangle with a green pixel shader.
-#if 0
-	vertex vertex_list[] =
-	{
-		//X - Y - Z
-		//FRONT FACE
-		{Vector3D(-0.5f,-0.5f,-0.5f),    Vector3D(0,1,0),  Vector3D(0,1,0) },
-		{Vector3D(-0.5f,0.5f,-0.5f),    Vector3D(0,1,0),  Vector3D(0,1,0) },
-		{ Vector3D(0.5f,0.5f,-0.5f),   Vector3D(0,1,0),  Vector3D(0,1,0) },
-		{ Vector3D(0.5f,-0.5f,-0.5f),     Vector3D(0,1,0), Vector3D(0,1,0) },
-	};
-#endif
-
-#if 1
-	vertex vertex_list[] =
-	{
-		//X - Y - Z
-		//FRONT FACE
-		{Vector3D(-0.5f,-0.5f,-0.5f),    Vector3D(1,0,0),  Vector3D(0.2f,0,0) },
-		{Vector3D(-0.5f,0.5f,-0.5f),    Vector3D(1,1,0), Vector3D(0.2f,0.2f,0) },
-		{ Vector3D(0.5f,0.5f,-0.5f),   Vector3D(1,1,0),  Vector3D(0.2f,0.2f,0) },
-		{ Vector3D(0.5f,-0.5f,-0.5f),     Vector3D(1,0,0), Vector3D(0.2f,0,0) },
-
-		//BACK FACE
-		{ Vector3D(0.5f,-0.5f,0.5f),    Vector3D(0,1,0), Vector3D(0,0.2f,0) },
-		{ Vector3D(0.5f,0.5f,0.5f),    Vector3D(0,1,1), Vector3D(0,0.2f,0.2f) },
-		{ Vector3D(-0.5f,0.5f,0.5f),   Vector3D(0,1,1),  Vector3D(0,0.2f,0.2f) },
-		{ Vector3D(-0.5f,-0.5f,0.5f),     Vector3D(0,1,0), Vector3D(0,0.2f,0) }
-	};
-#endif
-#endif
-
+	cube->getLocalPosition().setVector3D(0, 0, 2);
 }
 
 void AppWindow::onUpdate()
 {
 	Window::onUpdate();
 
+	EngineTime::get()->update();
 	InputSystem::get()->update();
 	//CLEAR THE RENDER TARGET 
 	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(
@@ -125,8 +67,6 @@ void AppWindow::onUpdate()
 	AGameObjectManager::get()->update();
 
 	m_swap_chain->present(true);
-
-	EngineTime::get()->update();
 }
 
 void AppWindow::onDestroy()

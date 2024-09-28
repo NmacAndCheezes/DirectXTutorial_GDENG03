@@ -2,7 +2,7 @@
 #include <memory>
 #include "Vector3D.h"
 #include "Vector4D.h"
-
+#include <iostream>
 class Matrix4x4
 {
 public:
@@ -178,6 +178,19 @@ public:
 	{
 	}
 
+	void printMatrix()
+	{
+		for (int y = 0; y < 4; y++)
+		{
+			for (int x = 0; x < 4; x++)
+			{
+				std::cout << m_mat[x][y] << " ";
+			}
+			std::cout << "\n";
+		}
+
+		std::cout << std::endl;
+	}
 private:
 	float m_mat[4][4] = {};
 };
