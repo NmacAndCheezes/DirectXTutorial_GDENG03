@@ -156,6 +156,7 @@
     <ClCompile Include="QuadRenderer.cpp" />
     <ClCompile Include="Renderer2D.cpp" />
     <ClCompile Include="Renderer3D.cpp" />
+    <ClCompile Include="Vector3D.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="VertexShader.cpp" />

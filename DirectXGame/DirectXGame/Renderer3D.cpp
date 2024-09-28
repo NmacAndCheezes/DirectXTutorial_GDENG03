@@ -37,3 +37,8 @@ void Renderer3D::release()
 	m_ib->release();
 	delete this;
 }
+
+Matrix4x4 Renderer3D::getLocalMatrix()
+{
+	return Matrix4x4();
+}

@@ -8,7 +8,9 @@
 #include "DeviceContext.h"
 #include "Vector3D.h"
 #include "AGameObject.h"
+#include "Camera.h"
 #include <iostream>
+#include "AGameObjectManager.h"
 
 CubeRenderer::CubeRenderer(AGameObject* obj) : Renderer3D(obj)
 {
@@ -32,17 +34,6 @@ CubeRenderer::CubeRenderer(AGameObject* obj) : Renderer3D(obj)
 
 	m_vb = GraphicsEngine::get()->createVertexBuffer();
 	UINT size_list = ARRAYSIZE(vertex_list);
-	for (int i = 0; i < size_list; i++)
-	{
-		Vector3D position = vertex_list[i].position;
-
-		position.m_x += attachedObject->position().m_x;
-		position.m_y += attachedObject->position().m_y;
-		position.m_z += attachedObject->position().m_z;
-
-		vertex_list[i].position = position;
-		//std::cout << attachedObject->posX() << " " << attachedObject->posY() << " " << attachedObject->posZ() << " " << "\n";
-	}
 
 	unsigned int index_list[] =
 	{
@@ -94,9 +85,58 @@ CubeRenderer::CubeRenderer(AGameObject* obj) : Renderer3D(obj)
 	m_ps = GraphicsEngine::get()->createPixelShader(shader_byte_code, size_shader);
 	GraphicsEngine::get()->releaseCompiledShader();
 #pragma endregion
+
+#pragma region ConstantBuffer
+	constant cc;
+	cc.m_time = 0;
+	m_cb = GraphicsEngine::get()->createConstantBuffer();
+
+	m_cb->load(&cc, sizeof(constant));
+#pragma endregion
 }
 
 void CubeRenderer::update()
 {
 	Renderer3D::update();
-}
+
+	for (auto cam : AGameObjectManager::get()->getCameras())
+	{
+		//set vertex shader and pixel shader for the object
+		DeviceContext* deviceContext = GraphicsEngine::get()->getImmediateDeviceContext();
+		deviceContext->setVertexShader(m_vs);
+		deviceContext->setPixelShader(m_ps);
+
+		constant c = {};
+
+		Matrix4x4 allMatrix; allMatrix.setIdentity();
+		Matrix4x4 translationMatrix; translationMatrix.setIdentity();  translationMatrix.setTranslation(attachedObject->getLocalPosition());
+		Matrix4x4 scaleMatrix; scaleMatrix.setScale(attachedObject->getLocalScale());
+		Vector3D rotation = attachedObject->getLocalRotation();
+		Matrix4x4 zMatrix; zMatrix.setRotationZ(rotation.Z());
+		Matrix4x4 xMatrix; xMatrix.setRotationX(rotation.X());
+		Matrix4x4 yMatrix; yMatrix.setRotationY(rotation.Y());
+
+		//Scale --> Rotate --> Transform as recommended order.
+		Matrix4x4 rotMatrix; rotMatrix.setIdentity();
+		rotMatrix *= zMatrix * yMatrix * xMatrix;
+		allMatrix *= scaleMatrix * rotMatrix;
+		allMatrix *= translationMatrix;
+		c.m_world = allMatrix;
+
+		Matrix4x4 cameraMatrix = cam->getCameraViewMatrix();
+		c.m_view = m_local_matrix;
+
+		//cbData.projMatrix.setOrthoLH(width / 400.0f, height / 400.0f, -4.0f, 4.0f);
+		float aspectRatio = cam->getAspectRatio();
+		c.m_proj.setPerspectiveForLH(aspectRatio, aspectRatio, 0.1f, 1000.0f);
+
+		this->m_cb->update(deviceContext, &c);
+		deviceContext->setConstantBuffer(m_ps, this->m_cb);
+		deviceContext->setIndexBuffer(this->m_ib);
+		deviceContext->setVertexBuffer(this->m_vb);
+
+		deviceContext->drawTriangleList(this->m_ib->getSizeIndexList(), 0);
+	}
+		
+	}
+	

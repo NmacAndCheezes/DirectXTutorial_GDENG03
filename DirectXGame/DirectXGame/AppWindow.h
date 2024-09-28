@@ -37,14 +37,7 @@ public: //getters
 
 private:
 	SwapChain* m_swap_chain = NULL;
-	VertexBuffer* m_vb = NULL; //make this a gameObject
-	VertexShader* m_vs = NULL;
-	PixelShader* m_ps = NULL;
-	ConstantBuffer* m_cb = NULL;
-	IndexBuffer* m_ib = NULL; //make this a gameObject
-
 private:
-	Camera* cam = NULL;
 	//Matrix4x4 m_world_cam;
 
 private: //events list

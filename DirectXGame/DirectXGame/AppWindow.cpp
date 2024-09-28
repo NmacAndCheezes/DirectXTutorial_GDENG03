@@ -30,33 +30,20 @@ void AppWindow::onCreate()
 {
 	Window::onCreate();
 
-	cam = new Camera(this);
+	m_swap_chain = GraphicsEngine::get()->createSwapChain();
+	RECT rc = this->getClientWindowRect();
+	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
+
+	Camera* cam = new Camera(this, "Camera");
 	AGameObjectManager::get()->registerAGameObject(cam);
+	cam->getLocalPosition().setVector3D(0,0,-2);
+	AGameObjectManager::get()->registerCamera(cam);
 
 	InputSystem::get()->showCursor(false);
 	GraphicsEngine::get()->initialize();
-	m_swap_chain = GraphicsEngine::get()->createSwapChain();
 
-	RECT rc = this->getClientWindowRect();
-	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
-	
-
-#pragma region ConstantBuffer
-	constant cc;
-	cc.m_time = 0;
-	m_cb = GraphicsEngine::get()->createConstantBuffer();
-
-	m_cb->load(&cc, sizeof(constant));
-#pragma endregion
-
-	Quad* obj = new Quad(Vector3D(1.5f,0,0));
-	AGameObjectManager::get()->registerAGameObject(obj);
-
-	obj = new Quad(Vector3D(0, 0, 0));
-	AGameObjectManager::get()->registerAGameObject(obj);
-
-	obj = new Quad(Vector3D(-1.5, 0, 0));
-	AGameObjectManager::get()->registerAGameObject(obj);
+	Cube* cube = new Cube("Cube");
+	AGameObjectManager::get()->registerAGameObject(cube);
 
 #if 0
 	//rectangle with a rainbow pixel shader.
@@ -152,30 +139,15 @@ void AppWindow::onDestroy()
 
 void AppWindow::onFocus()
 {
-	cam->onFocus();
+	//cam->onFocus();
 }
 
 void AppWindow::onKillFocus()
 {
-	cam->onKillFocus();
+	//cam->onKillFocus();
 }
 
 SwapChain* AppWindow::getSwapChain()
 {
 	return m_swap_chain;
-}
-
-VertexShader* AppWindow::getVertexShader()
-{
-	return m_vs;
-}
-
-PixelShader* AppWindow::getPixelShader()
-{
-	return m_ps;
-}
-
-ConstantBuffer* AppWindow::getConstantBuffer()
-{
-	return m_cb;
 }

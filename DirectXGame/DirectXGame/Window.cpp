@@ -40,7 +40,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	}
 }
 
-bool Window::init()
+bool Window::init(float m_init_width, float m_init_height)
 {
 	//Initializing WNDCLASSEX obj
 	WNDCLASSEX wc;

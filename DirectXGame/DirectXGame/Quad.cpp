@@ -6,15 +6,8 @@
 #include "QuadRenderer.h"
 #include <iostream>
 
-Quad::Quad() : AGameObject()
+Quad::Quad(std::string name) : AGameObject(name)
 {
-	QuadRenderer* rend = new QuadRenderer(this);
-	this->attachComponent(rend);
-}
-
-Quad::Quad(const Vector3D& position) : AGameObject(position)
-{
-	//std::cout << position.m_x << " " << position.m_y << " " << position.m_z << "\n";
 	QuadRenderer* rend = new QuadRenderer(this);
 	this->attachComponent(rend);
 }

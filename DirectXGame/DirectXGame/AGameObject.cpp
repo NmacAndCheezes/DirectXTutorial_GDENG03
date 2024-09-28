@@ -1,9 +1,12 @@
 #include "AGameObject.h"
 #include "Component.h"
 
-AGameObject::AGameObject() : m_position(Vector3D()) {}
-
-AGameObject::AGameObject(const Vector3D& position) : m_position(position) { }
+AGameObject::AGameObject(std::string name) :
+	m_name(name),
+	m_local_position(Vector3D()),
+	m_local_rotation(Vector3D()),
+	m_local_scale(Vector3D(1,1,1))
+{}
 
 void AGameObject::update()
 {
@@ -32,7 +35,22 @@ void AGameObject::detachComponent(Component* component)
 	m_component_list.remove(component);
 }
 
-Vector3D AGameObject::position()
+std::string AGameObject::getName()
 {
-	return m_position;
+	return m_name;
+}
+
+Vector3D AGameObject::getLocalPosition()
+{
+	return m_local_rotation;
+}
+
+Vector3D AGameObject::getLocalRotation()
+{
+	return m_local_rotation;
+}
+
+Vector3D AGameObject::getLocalScale()
+{
+	return m_local_scale;
 }

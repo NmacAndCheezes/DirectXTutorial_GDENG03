@@ -8,8 +8,9 @@ class AppWindow;
 class Camera : private InputListener, public AGameObject
 {
 public:
-	Camera(AppWindow* window);
+	Camera(AppWindow* window, std::string name);
 	virtual void update() override;
+	void updateViewMatrix();
 	virtual void release() override;
 	~Camera() {}
 
@@ -28,8 +29,10 @@ public:
 	void onFocus();
 	void onKillFocus();
 
+	Matrix4x4 getCameraViewMatrix();
+	float getAspectRatio();
 private:
-	Matrix4x4 m_world_cam;
+	Matrix4x4 camera_view_matrix;
 	AppWindow* m_window = nullptr;
 	float m_rot_x = 0.0f;
 	float m_rot_y = 0.0f;

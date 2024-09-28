@@ -5,8 +5,7 @@
 class Cube : public AGameObject
 {
 public:
-	Cube();
-	Cube(const Vector3D& position);
+	Cube(std::string name);
 	virtual void update() override;
 	~Cube();
 };

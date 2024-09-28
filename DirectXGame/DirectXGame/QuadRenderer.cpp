@@ -30,9 +30,16 @@ QuadRenderer::QuadRenderer(AGameObject* obj) : Renderer2D(obj)
 	{
 		Vector3D position = vertex_list[i].position;
 
-		position.m_x += attachedObject->position().m_x;
-		position.m_y += attachedObject->position().m_y;
-		position.m_z += attachedObject->position().m_z;
+		position += Vector3D(
+			attachedObject->getLocalPosition().X(), 
+			attachedObject->getLocalPosition().Y(),
+			attachedObject->getLocalPosition().Z()
+			);
+		//position.m_x += attachedObject->getLocalPosition().X();
+		//position.m_y += attachedObject->getLocalPosition().Y();
+		//position.m_z += attachedObject->getLocalPosition().Z();
+
+
 
 		vertex_list[i].position = position;
 		//std::cout << attachedObject->posX() << " " << attachedObject->posY() << " " << attachedObject->posZ() << " " << "\n";

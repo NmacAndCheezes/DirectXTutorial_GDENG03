@@ -4,8 +4,7 @@
 class Quad : public AGameObject
 {
 public:
-	Quad();
-	Quad(const Vector3D& position);
+	Quad(std::string name);
 	virtual void update() override;
 	~Quad();
 };

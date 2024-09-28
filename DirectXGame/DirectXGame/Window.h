@@ -5,7 +5,7 @@ class Window
 {
 public:
 	Window() {};
-	bool init();
+	bool init(float m_init_width, float m_init_height);
 	bool broadcast();
 	bool release();
 	bool isRunning();

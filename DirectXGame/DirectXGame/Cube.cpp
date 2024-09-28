@@ -6,15 +6,8 @@
 #include "CubeRenderer.h"
 #include <iostream>
 
-Cube::Cube() : AGameObject()
+Cube::Cube(std::string name) : AGameObject(name)
 {
-	CubeRenderer* rend = new CubeRenderer(this);
-	this->attachComponent(rend);
-}
-
-Cube::Cube(const Vector3D& position) : AGameObject(position) 
-{
-	//std::cout << position.m_x << " " << position.m_y << " " << position.m_z << "\n";
 	CubeRenderer* rend = new CubeRenderer(this);
 	this->attachComponent(rend);
 }

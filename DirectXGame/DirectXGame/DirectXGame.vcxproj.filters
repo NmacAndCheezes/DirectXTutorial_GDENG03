@@ -103,6 +103,7 @@
     <ClCompile Include="Renderer2D.cpp">
       <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="Vector3D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
