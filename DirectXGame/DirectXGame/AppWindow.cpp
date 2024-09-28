@@ -79,11 +79,15 @@ void AppWindow::onDestroy()
 
 void AppWindow::onFocus()
 {
+	for (auto i : AGameObjectManager::get()->getCameras())
+		i->onFocus();
 	//cam->onFocus();
 }
 
 void AppWindow::onKillFocus()
 {
+	for (auto i : AGameObjectManager::get()->getCameras())
+		i->onKillFocus();
 	//cam->onKillFocus();
 }
 

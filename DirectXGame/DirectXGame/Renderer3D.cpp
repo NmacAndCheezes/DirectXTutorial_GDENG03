@@ -14,14 +14,14 @@ Renderer3D::Renderer3D(AGameObject* obj) : Component(obj)
 void Renderer3D::update()
 {
 	//SET DEFAULT SHADER IN THE GRAPHICS PIPELINE TO BE ABLE TO DRAW
-	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(m_vs);
-	GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(m_ps);
+	//GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(m_vs);
+	//GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(m_ps);
 	//SET THE VERTICES OF THE TRIANGLE TO DRAW
-	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
+	//GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
 	//SET THE INDICES OF THE TRIANGLE TO DRAW
-	GraphicsEngine::get()->getImmediateDeviceContext()->setIndexBuffer(m_ib);
+	//GraphicsEngine::get()->getImmediateDeviceContext()->setIndexBuffer(m_ib);
 	// FINALLY DRAW THE TRIANGLE
-	GraphicsEngine::get()->getImmediateDeviceContext()->drawIndexedTriangleList(m_ib->getSizeIndexList(), 0, 0);
+	//GraphicsEngine::get()->getImmediateDeviceContext()->drawIndexedTriangleList(m_ib->getSizeIndexList(), 0, 0);
 }
 
 void Renderer3D::setVertex()

@@ -23,7 +23,8 @@ struct constant
 
 Camera::Camera(AppWindow* window, std::string name) : AGameObject(name), m_window(window)
 {
-	updateViewMatrix();
+	InputSystem::get()->addListner(this);
+	//updateViewMatrix();
 
 	//m_world_cam.setTranslation(Vector3D(0, 0, -2));
 }
@@ -32,7 +33,7 @@ void Camera::update()
 {
 	AGameObject::update();
 
-	camera_view_matrix.printMatrix();
+	//camera_view_matrix.printMatrix();
 }
 
 void Camera::updateViewMatrix()
@@ -54,13 +55,11 @@ void Camera::updateViewMatrix()
 	temp.setRotationY(m_rot_y);
 	world_cam *= temp;
 
-	Vector3D new_pos = camera_view_matrix.getTranslation() + world_cam.getZDirection() * (m_forward * 0.3f);
+	//Vector3D new_pos = camera_view_matrix.getTranslation() + world_cam.getZDirection() * (m_forward * 0.3f);
 
-	new_pos = new_pos + world_cam.getXDirection() * (m_right * 0.3f);
-	//temp.setTranslation(m_local_position);
+	//new_pos = new_pos + world_cam.getXDirection() * (m_right * 0.3f);
+	temp.setTranslation(m_local_position);
 	world_cam *= temp;
-
-
 
 	world_cam.inverse();
 
@@ -91,6 +90,7 @@ void Camera::updateViewMatrix()
 void Camera::release()
 {
 	AGameObject::release();
+	//InputSystem::get()->removeListner(this);
 }
 
 void Camera::onKeyDown(int key)
@@ -99,11 +99,13 @@ void Camera::onKeyDown(int key)
 	float x = m_local_position.X();
 	float y = m_local_position.Y();
 	float z = m_local_position.Z();
+
 	if (key == 'W')
 	{
 		//m_rot_x += speed * EngineTime::get()->getDT();
 		//m_forward = 1.0f; //front back
 		z += EngineTime::get()->getDT() * speed;
+		m_local_position.setVector3D(x, y, z);
 		updateViewMatrix();
 	}
 	else if (key == 'S')
@@ -111,6 +113,7 @@ void Camera::onKeyDown(int key)
 		//m_rot_x -= speed * EngineTime::get()->getDT();
 		//m_forward = -1.0f; //front back
 		z -= EngineTime::get()->getDT() * speed;
+		m_local_position.setVector3D(x, y, z);
 		updateViewMatrix();
 	}
 
@@ -119,16 +122,19 @@ void Camera::onKeyDown(int key)
 		//m_rot_y += speed * EngineTime::get()->getDT();
 		//m_right = -1.0f;
 		x += EngineTime::get()->getDT() * speed;
+		m_local_position.setVector3D(x, y, z);
+		updateViewMatrix();
 	}
 	else if (key == 'D')
 	{
 		//m_rot_y -= speed * EngineTime::get()->getDT();
 		//m_right = 1.0f;
 		x -= EngineTime::get()->getDT() * speed;
+		m_local_position.setVector3D(x, y, z);
+		updateViewMatrix();
 	}
 
-	this->getLocalPosition().setVector3D(x, y, z);
-	updateViewMatrix();
+	//std::cout << this->m_local_position.X() << ", " << this->m_local_position.Y() << ", " << this->m_local_position.Z() << std::endl;
 }
 
 void Camera::onKeyUp(int key)

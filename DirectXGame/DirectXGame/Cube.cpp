@@ -15,8 +15,6 @@ Cube::Cube(std::string name) : AGameObject(name)
 void Cube::update()
 {
 	AGameObject::update();
-
-	constant cc;
 }
 
 Cube::~Cube()

@@ -90,7 +90,6 @@ CubeRenderer::CubeRenderer(AGameObject* obj) : Renderer3D(obj)
 	constant cc;
 	cc.m_time = 0;
 	m_cb = GraphicsEngine::get()->createConstantBuffer();
-
 	m_cb->load(&cc, sizeof(constant));
 #pragma endregion
 }
@@ -108,34 +107,47 @@ void CubeRenderer::update()
 
 		constant c = {};
 
-		Matrix4x4 allMatrix; allMatrix.setIdentity();
-		Matrix4x4 translationMatrix; translationMatrix.setIdentity();  translationMatrix.setTranslation(attachedObject->getLocalPosition());
-		Matrix4x4 scaleMatrix; scaleMatrix.setScale(attachedObject->getLocalScale());
+		Matrix4x4 allMatrix; 
+		allMatrix.setIdentity();
+		Matrix4x4 translationMatrix; 
+		translationMatrix.setIdentity();  
+		translationMatrix.setTranslation(attachedObject->getLocalPosition());
+		Matrix4x4 scaleMatrix; 
+		scaleMatrix.setScale(attachedObject->getLocalScale());
 		Vector3D rotation = attachedObject->getLocalRotation();
-		Matrix4x4 zMatrix; zMatrix.setRotationZ(rotation.Z());
-		Matrix4x4 xMatrix; xMatrix.setRotationX(rotation.X());
-		Matrix4x4 yMatrix; yMatrix.setRotationY(rotation.Y());
+		Matrix4x4 zMatrix; 
+		zMatrix.setRotationZ(rotation.Z());
+		Matrix4x4 xMatrix; 
+		xMatrix.setRotationX(rotation.X());
+		Matrix4x4 yMatrix; 
+		yMatrix.setRotationY(rotation.Y());
 
 		//Scale --> Rotate --> Transform as recommended order.
 		Matrix4x4 rotMatrix; rotMatrix.setIdentity();
-		rotMatrix *= zMatrix * yMatrix * xMatrix;
-		allMatrix *= scaleMatrix * rotMatrix;
-		allMatrix *= translationMatrix;
+		rotMatrix = (((rotMatrix * zMatrix) * yMatrix) * xMatrix);
+		allMatrix = ((scaleMatrix * allMatrix) * rotMatrix);
+		allMatrix = (allMatrix * translationMatrix);
 		c.m_world = allMatrix;
 
 		Matrix4x4 cameraMatrix = cam->getCameraViewMatrix();
-		c.m_view = m_local_matrix;
+		c.m_view = cameraMatrix;
 
 		//cbData.projMatrix.setOrthoLH(width / 400.0f, height / 400.0f, -4.0f, 4.0f);
 		float aspectRatio = cam->getAspectRatio();
 		c.m_proj.setPerspectiveForLH(aspectRatio, aspectRatio, 0.1f, 1000.0f);
 
 		this->m_cb->update(deviceContext, &c);
+		deviceContext->setConstantBuffer(m_vs, this->m_cb);
 		deviceContext->setConstantBuffer(m_ps, this->m_cb);
 		deviceContext->setIndexBuffer(this->m_ib);
 		deviceContext->setVertexBuffer(this->m_vb);
 
-		deviceContext->drawTriangleList(this->m_ib->getSizeIndexList(), 0);
+		deviceContext->drawIndexedTriangleList(this->m_ib->getSizeIndexList(), 0, 0);
+		std::cout << attachedObject->getLocalScale().X() << ", " << attachedObject->getLocalScale().Y() << ", " << attachedObject->getLocalScale().Z() << std::endl;
+		//std::cout << "all matrix" << "\n";
+		//rotMatrix.printMatrix();
+		//std::cout << "camera matrix" << "\n";
+		//cameraMatrix.printMatrix();
 	}
 		
 }
