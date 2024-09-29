@@ -49,73 +49,14 @@ void AppWindow::onCreate()
 	m_cb->load(&cc, sizeof(constant));
 #pragma endregion
 
-	Quad* obj = new Quad(Vector3D(1.5f,0,0));
+	Cube* obj = new Cube(Vector3D(1.5f,0,0));
 	AGameObjectManager::get()->registerAGameObject(obj);
 
-	obj = new Quad(Vector3D(0, 0, 0));
+	obj = new Cube(Vector3D(0, 0, 0));
 	AGameObjectManager::get()->registerAGameObject(obj);
 
-	obj = new Quad(Vector3D(-1.5, 0, 0));
+	obj = new Cube(Vector3D(-1.5, 0, 0));
 	AGameObjectManager::get()->registerAGameObject(obj);
-
-#if 0
-	//rectangle with a rainbow pixel shader.
-#if 0
-	vertex vertex_list[] =
-	{
-		//X - Y - Z
-		//FRONT FACE
-		{Vector3D(-0.5f,-0.5f,-0.5f),    Vector3D(1,0,0),  Vector3D(1,0,0) },
-		{Vector3D(-0.5f,0.5f,-0.5f),    Vector3D(0,1,0),  Vector3D(0,1,0) },
-		{ Vector3D(0.5f,0.5f,-0.5f),   Vector3D(0,0,1),  Vector3D(0,0,1) },
-		{ Vector3D(0.5f,-0.5f,-0.5f),     Vector3D(1,1,0), Vector3D(1,1,0) },
-	};
-#endif
-
-	//triangle with a rainbow pixel shader
-#if 0
-	vertex vertex_list[] =
-	{
-		//X - Y - Z
-		//FRONT FACE
-		{Vector3D(0.0f,0.5f,0.0f),    Vector3D(1,0,0),  Vector3D(1,0,0) },
-		{Vector3D(-0.5f,-0.5f,-0.5f),    Vector3D(0,1,0),  Vector3D(0,1,0) },
-		{ Vector3D(0.5f,-0.5f,-0.5f),   Vector3D(0,0,1),  Vector3D(0,0,1) },
-		//{ Vector3D(0.5f,-0.5f,-0.5f),     Vector3D(1,1,0), Vector3D(1,1,0) },
-	};
-#endif
-
-	//rectangle with a green pixel shader.
-#if 0
-	vertex vertex_list[] =
-	{
-		//X - Y - Z
-		//FRONT FACE
-		{Vector3D(-0.5f,-0.5f,-0.5f),    Vector3D(0,1,0),  Vector3D(0,1,0) },
-		{Vector3D(-0.5f,0.5f,-0.5f),    Vector3D(0,1,0),  Vector3D(0,1,0) },
-		{ Vector3D(0.5f,0.5f,-0.5f),   Vector3D(0,1,0),  Vector3D(0,1,0) },
-		{ Vector3D(0.5f,-0.5f,-0.5f),     Vector3D(0,1,0), Vector3D(0,1,0) },
-	};
-#endif
-
-#if 1
-	vertex vertex_list[] =
-	{
-		//X - Y - Z
-		//FRONT FACE
-		{Vector3D(-0.5f,-0.5f,-0.5f),    Vector3D(1,0,0),  Vector3D(0.2f,0,0) },
-		{Vector3D(-0.5f,0.5f,-0.5f),    Vector3D(1,1,0), Vector3D(0.2f,0.2f,0) },
-		{ Vector3D(0.5f,0.5f,-0.5f),   Vector3D(1,1,0),  Vector3D(0.2f,0.2f,0) },
-		{ Vector3D(0.5f,-0.5f,-0.5f),     Vector3D(1,0,0), Vector3D(0.2f,0,0) },
-
-		//BACK FACE
-		{ Vector3D(0.5f,-0.5f,0.5f),    Vector3D(0,1,0), Vector3D(0,0.2f,0) },
-		{ Vector3D(0.5f,0.5f,0.5f),    Vector3D(0,1,1), Vector3D(0,0.2f,0.2f) },
-		{ Vector3D(-0.5f,0.5f,0.5f),   Vector3D(0,1,1),  Vector3D(0,0.2f,0.2f) },
-		{ Vector3D(-0.5f,-0.5f,0.5f),     Vector3D(0,1,0), Vector3D(0,0.2f,0) }
-	};
-#endif
-#endif
 
 }
 
