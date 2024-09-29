@@ -38,6 +38,29 @@ void Camera::update()
 
 void Camera::updateViewMatrix()
 {
+	Matrix4x4 worldCam; worldCam.setIdentity();
+	Matrix4x4 temp; temp.setIdentity();
+
+	Vector3D localRot = this->getLocalRotation();
+
+	temp.setRotationX(localRot.X());
+	worldCam *= temp;
+
+	temp.setRotationY(localRot.Y());
+	worldCam *= temp;
+
+	temp.setTranslation(this->getLocalPosition());
+	worldCam *= temp;
+
+	/*Vector3D cameraPos = this->worldCameraMatrix.getTranslation() + (worldCam.getZDirection() * (this->forwardDirection * 0.01f));
+	std::cout << "Camera pos: " << cameraPos.getX() << " " << cameraPos.getY() << " " << cameraPos.getZ() << "\n";
+	temp.setTranslation(cameraPos);
+	worldCam = worldCam.multiplyTo(temp);
+	this->worldCameraMatrix = worldCam;*/
+
+	worldCam.inverse();
+	this->camera_view_matrix = worldCam;
+#if 0
 	constant cc;
 	cc.m_time = ::GetTickCount64();
 
@@ -85,6 +108,7 @@ void Camera::updateViewMatrix()
 
 	//GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_window->getVertexShader(), m_window->getConstantBuffer());
 	//GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_window->getPixelShader(), m_window->getConstantBuffer());
+#endif
 }
 
 void Camera::release()

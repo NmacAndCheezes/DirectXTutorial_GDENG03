@@ -124,9 +124,9 @@ void CubeRenderer::update()
 
 		//Scale --> Rotate --> Transform as recommended order.
 		Matrix4x4 rotMatrix; rotMatrix.setIdentity();
-		rotMatrix = (((rotMatrix * zMatrix) * yMatrix) * xMatrix);
-		allMatrix = ((scaleMatrix * allMatrix) * rotMatrix);
-		allMatrix = (allMatrix * translationMatrix);
+		rotMatrix = rotMatrix.multiplyTo(zMatrix.multiplyTo(yMatrix.multiplyTo(xMatrix)));
+		allMatrix = allMatrix.multiplyTo(scaleMatrix.multiplyTo(rotMatrix));
+		allMatrix = allMatrix.multiplyTo(translationMatrix);
 		c.m_world = allMatrix;
 
 		Matrix4x4 cameraMatrix = cam->getCameraViewMatrix();
@@ -143,11 +143,14 @@ void CubeRenderer::update()
 		deviceContext->setVertexBuffer(this->m_vb);
 
 		deviceContext->drawIndexedTriangleList(this->m_ib->getSizeIndexList(), 0, 0);
-		std::cout << attachedObject->getLocalScale().X() << ", " << attachedObject->getLocalScale().Y() << ", " << attachedObject->getLocalScale().Z() << std::endl;
-		//std::cout << "all matrix" << "\n";
-		//rotMatrix.printMatrix();
-		//std::cout << "camera matrix" << "\n";
-		//cameraMatrix.printMatrix();
+		//std::cout << attachedObject->getLocalScale().X() << ", " << attachedObject->getLocalScale().Y() << ", " << attachedObject->getLocalScale().Z() << std::endl;
+		std::cout << "all matrix" << "\n";
+		allMatrix.printMatrix();
+		std::cout << "camera matrix" << "\n";
+		cameraMatrix.printMatrix();
+		c.m_world.printMatrix();
+		c.m_view.printMatrix();
+		c.m_proj.printMatrix();
 	}
 		
 }

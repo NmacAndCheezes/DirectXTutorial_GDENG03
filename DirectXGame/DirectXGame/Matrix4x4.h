@@ -22,6 +22,7 @@ public:
 
 	void setTranslation(Vector3D translation)
 	{
+		this->setIdentity();
 		m_mat[3][0] = translation.X();
 		m_mat[3][1] = translation.Y();
 		m_mat[3][2] = translation.Z();
@@ -29,6 +30,7 @@ public:
 
 	void setScale(Vector3D scale)
 	{
+		this->setIdentity();
 		m_mat[0][0] = scale.X();
 		m_mat[1][1] = scale.Y();
 		m_mat[2][2] = scale.Z();
@@ -43,13 +45,14 @@ public:
 
 	void setPerspectiveForLH(float fov, float aspect, float znear, float zfar)
 	{
+		this->setIdentity();
 		float yscale = 1.0f / tan(fov / 2.0f);
 		float xscale = yscale / aspect;
-		m_mat[0][0] = xscale;
-		m_mat[1][1] = yscale;
-		m_mat[2][2] = zfar / (zfar - znear);
-		m_mat[2][3] = 1.0f;
-		m_mat[3][2] = (-znear * zfar) / (zfar - znear);
+		this->m_mat[0][0] = xscale;
+		this->m_mat[1][1] = yscale;
+		this->m_mat[2][2] = zfar / (zfar - znear);
+		this->m_mat[2][3] = 1.0f;
+		this->m_mat[3][2] = (-znear * zfar) / (zfar - znear);
 	}
 
 	void setOrthoLH(float width, float height, float near_plane, float far_plane)
@@ -63,6 +66,7 @@ public:
 
 	void setRotationX(float x)
 	{
+		this->setIdentity();
 		m_mat[1][1] = cos(x);
 		m_mat[1][2] = sin(x);
 		m_mat[2][1] = -sin(x);
@@ -71,6 +75,7 @@ public:
 
 	void setRotationY(float y)
 	{
+		this->setIdentity();
 		m_mat[0][0] = cos(y);
 		m_mat[0][2] = -sin(y);
 		m_mat[2][0] = sin(y);
@@ -79,6 +84,7 @@ public:
 
 	void setRotationZ(float z)
 	{
+		this->setIdentity();
 		m_mat[0][0] = cos(z);
 		m_mat[0][1] = sin(z);
 		m_mat[1][0] = -sin(z);
@@ -172,6 +178,20 @@ public:
 		}
 
 		this->setMatrix(out);
+	}
+
+	Matrix4x4 multiplyTo(Matrix4x4 matrix)
+	{
+		Matrix4x4 out;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				out.m_mat[i][j] =
+					this->m_mat[i][0] * matrix.m_mat[0][j] + this->m_mat[i][1] * matrix.m_mat[1][j] +
+					this->m_mat[i][2] * matrix.m_mat[2][j] + this->m_mat[i][3] * matrix.m_mat[3][j];
+			}
+		}
+
+		return out;
 	}
 
 	~Matrix4x4()
