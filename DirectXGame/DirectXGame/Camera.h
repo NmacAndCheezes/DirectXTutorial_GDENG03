@@ -5,7 +5,7 @@
 
 class AppWindow;
 
-class Camera : private InputListener, public AGameObject
+class Camera : /*private InputListener,*/ public AGameObject
 {
 public:
 	Camera(AppWindow* window);
@@ -14,6 +14,7 @@ public:
 	~Camera() {}
 
 	//Inherited via InputListener
+#if 0
 	virtual void onKeyDown(int key) override;
 	virtual void onKeyUp(int key) override;
 
@@ -25,8 +26,21 @@ public:
 
 	virtual void onRightMouseDown(const Point& delta_mouse_pos) override;
 	virtual void onRightMouseUp(const Point& delta_mouse_pos) override;
-	void onFocus();
-	void onKillFocus();
+#endif
+
+	virtual void onKeyDown(int key);
+	virtual void onKeyUp(int key);
+
+	//Mouse
+	virtual void onMouseMove(const Point& mouse_pos);
+
+	virtual void onLeftMouseDown(const Point& delta_mouse_pos);
+	virtual void onLeftMouseUp(const Point& delta_mouse_pos);
+
+	virtual void onRightMouseDown(const Point& delta_mouse_pos);
+	virtual void onRightMouseUp(const Point& delta_mouse_pos);
+
+
 
 private:
 	Matrix4x4 m_world_cam;

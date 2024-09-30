@@ -151,12 +151,4 @@ void Camera::onRightMouseUp(const Point& delta_mouse_pos)
 	m_scale_cube = 1.0f;
 }
 
-void Camera::onFocus()
-{
-	InputSystem::get()->addListner(this);
-}
 
-void Camera::onKillFocus()
-{
-	InputSystem::get()->removeListner(this);
-}

@@ -7,6 +7,7 @@ AGameObject::AGameObject(const Vector3D& position) : m_position(position) { }
 
 void AGameObject::update()
 {
+	if (!this->m_isActive) return;
 	for (auto c : m_component_list)
 	{
 		c->update();
@@ -30,6 +31,16 @@ void AGameObject::attachComponent(Component* component)
 void AGameObject::detachComponent(Component* component)
 {
 	m_component_list.remove(component);
+}
+
+void AGameObject::setActive(bool isActive)
+{
+	this->m_isActive = isActive;
+}
+
+bool AGameObject::getActive()
+{
+	return m_isActive;
 }
 
 Vector3D AGameObject::position()

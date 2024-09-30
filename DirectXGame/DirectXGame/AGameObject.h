@@ -15,6 +15,8 @@ public:
 	virtual void detachComponent(Component* component);
 	~AGameObject() {}
 
+	void setActive(bool isActive);
+	bool getActive();
 public:
 	Vector3D position();
 private:
@@ -32,5 +34,7 @@ protected:
 		Matrix4x4 m_proj; //projection matrix
 		unsigned int m_time = 0;
 	};
+
+	bool m_isActive = true;
 };
 

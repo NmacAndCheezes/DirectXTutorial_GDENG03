@@ -135,6 +135,7 @@
     <ClCompile Include="AGameObjectManager.cpp" />
     <ClCompile Include="AppWindow.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="Cube.cpp" />

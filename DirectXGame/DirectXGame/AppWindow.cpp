@@ -9,6 +9,7 @@
 #include "CubeRenderer.h"
 #include "Cube.h"
 #include "Quad.h"
+#include "CameraManager.h"
 
 __declspec(align(16))
 struct constant
@@ -23,8 +24,22 @@ void AppWindow::onCreate()
 {
 	Window::onCreate();
 
-	cam = new Camera(this);
+	Camera* cam = new Camera(this);
 	AGameObjectManager::get()->registerAGameObject(cam);
+	
+	Camera* cam2 = new Camera(this);
+	AGameObjectManager::get()->registerAGameObject(cam2);
+
+	Camera* cam3 = new Camera(this);
+	AGameObjectManager::get()->registerAGameObject(cam3);
+	
+	m_cm = new CameraManager();
+
+	m_cm->registerCamera(cam);
+	m_cm->registerCamera(cam2);
+	m_cm->registerCamera(cam3);
+	m_cm->ChangeCam(1);
+	InputSystem::get()->addListner(m_cm);
 
 	InputSystem::get()->showCursor(false);
 	GraphicsEngine::get()->initialize();
@@ -78,12 +93,12 @@ void AppWindow::onDestroy()
 
 void AppWindow::onFocus()
 {
-	cam->onFocus();
+	m_cm->onFocus();
 }
 
 void AppWindow::onKillFocus()
 {
-	cam->onKillFocus();
+	m_cm->onKillFocus();
 }
 
 SwapChainPtr AppWindow::getSwapChain()

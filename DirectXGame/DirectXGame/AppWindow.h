@@ -11,7 +11,7 @@
 #include "InputListener.h"
 #include "Matrix4x4.h"
 #include "Camera.h"
-
+#include "CameraManager.h"
 class AppWindow : public Window
 {
 public:
@@ -40,10 +40,8 @@ private:
 	VertexShaderPtr m_vs = NULL;
 	PixelShaderPtr m_ps = NULL;
 	ConstantBufferPtr m_cb = NULL;
-private:
-	Camera* cam = NULL;
-	//Matrix4x4 m_world_cam;
-
+	
+	CameraManager* m_cm = NULL;
 private: //events list
 	std::list<InputListener*> eventsOnFocus;
 	std::list<InputListener*> eventsOnKillFocus;

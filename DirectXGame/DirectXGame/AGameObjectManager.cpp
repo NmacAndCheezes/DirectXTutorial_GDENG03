@@ -10,6 +10,7 @@ void AGameObjectManager::update()
 {
 	for (auto obj : m_object_list)
 	{
+		if (!obj->getActive()) continue;
 		obj->update();
 	}
 }
