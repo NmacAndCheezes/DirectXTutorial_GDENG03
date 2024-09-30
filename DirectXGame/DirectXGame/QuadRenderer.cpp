@@ -24,7 +24,7 @@ QuadRenderer::QuadRenderer(AGameObject* obj) : Renderer2D(obj)
 	};
 #endif
 
-	m_vb = GraphicsEngine::get()->createVertexBuffer();
+	
 	UINT size_list = ARRAYSIZE(vertex_list);
 	for (int i = 0; i < size_list; i++)
 	{
@@ -43,18 +43,18 @@ QuadRenderer::QuadRenderer(AGameObject* obj) : Renderer2D(obj)
 
 
 #pragma region VertexShaders and Buffer
-	GraphicsEngine::get()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
+	GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
 
-	m_vb->load(vertex_list, sizeof(vertex), size_list, shader_byte_code, size_shader);
+	m_vb = GraphicsEngine::get()->getRenderSystem()->createVertexBuffer(vertex_list, sizeof(vertex), size_list, shader_byte_code, size_shader);
 
-	m_vs = GraphicsEngine::get()->createVertexShader(shader_byte_code, size_shader);
-	GraphicsEngine::get()->releaseCompiledShader();
+	m_vs = GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
+	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 #pragma endregion
 
 #pragma region PixelShader
-	GraphicsEngine::get()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
-	m_ps = GraphicsEngine::get()->createPixelShader(shader_byte_code, size_shader);
-	GraphicsEngine::get()->releaseCompiledShader();
+	GraphicsEngine::get()->getRenderSystem()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
+	m_ps = GraphicsEngine::get()->getRenderSystem()->createPixelShader(shader_byte_code, size_shader);
+	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 #pragma endregion
 }
 

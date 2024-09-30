@@ -1,10 +1,6 @@
 #include "Component.h"
 #include "Vector3D.h"
-
-class VertexBuffer;
-class VertexShader;
-class PixelShader;
-class ConstantBuffer;
+#include "Prerequisites.h"
 
 class Renderer2D : public Component
 {

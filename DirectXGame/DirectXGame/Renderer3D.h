@@ -1,12 +1,8 @@
 #pragma once
 #include "Component.h"
 #include "Vector3D.h"
-
-class VertexBuffer;
-class VertexShader;
-class PixelShader;
-class ConstantBuffer;
-class IndexBuffer;
+#include "Matrix4x4.h"
+#include "Prerequisites.h"
 
 class Renderer3D : public Component
 {
@@ -30,6 +26,14 @@ protected:
 		Vector3D color1;
 	};
 
+	__declspec(align(16))
+		struct constant
+	{
+		Matrix4x4 m_world;
+		Matrix4x4 m_view;
+		Matrix4x4 m_proj; //projection matrix
+		unsigned int m_time = 0;
+	};
 
 };
 

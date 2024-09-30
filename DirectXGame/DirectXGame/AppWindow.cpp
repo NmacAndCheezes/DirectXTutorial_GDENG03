@@ -10,6 +10,15 @@
 #include "Cube.h"
 #include "Quad.h"
 
+__declspec(align(16))
+struct constant
+{
+	Matrix4x4 m_world;
+	Matrix4x4 m_view;
+	Matrix4x4 m_proj; //projection matrix
+	unsigned int m_time = 0;
+};
+
 void AppWindow::onCreate()
 {
 	Window::onCreate();
@@ -22,6 +31,11 @@ void AppWindow::onCreate()
 	RECT rc = this->getClientWindowRect();
 	m_swap_chain = GraphicsEngine::get()->getRenderSystem()->createSwapChain(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);	
 
+	constant cc;
+	cc.m_time = 0;
+
+	m_cb = GraphicsEngine::get()->getRenderSystem()->createConstantBuffer(&cc, sizeof(constant));
+
 	Quad* obj = new Quad(Vector3D(1.5f,0,0));
 	AGameObjectManager::get()->registerAGameObject(obj);
 
@@ -30,6 +44,7 @@ void AppWindow::onCreate()
 
 	obj = new Quad(Vector3D(-1.5, 0, 0));
 	AGameObjectManager::get()->registerAGameObject(obj);
+
 }
 
 void AppWindow::onUpdate()
@@ -85,4 +100,9 @@ VertexShader* AppWindow::getVertexShader()
 PixelShader* AppWindow::getPixelShader()
 {
 	return m_ps;
+}
+
+ConstantBuffer* AppWindow::getConstantBuffer()
+{
+	return m_cb;
 }

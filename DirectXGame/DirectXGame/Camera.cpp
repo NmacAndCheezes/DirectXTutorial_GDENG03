@@ -73,10 +73,10 @@ void Camera::update()
 	int height = m_window->getClientWindowRect().bottom - m_window->getClientWindowRect().top;
 	cc.m_proj.setPerspectiveForLH(1.57f, ((float)width / (float)height), 0.1f, 100.0f);
 
-	m_window->getConstantBuffer()->update(GraphicsEngine::get()->getImmediateDeviceContext(), &cc);
+	m_window->getConstantBuffer()->update(GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext(), &cc);
 
-	GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_window->getVertexShader(), m_window->getConstantBuffer());
-	GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_window->getPixelShader(), m_window->getConstantBuffer());
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_window->getVertexShader(), m_window->getConstantBuffer());
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_window->getPixelShader(), m_window->getConstantBuffer());
 }
 
 void Camera::release()
