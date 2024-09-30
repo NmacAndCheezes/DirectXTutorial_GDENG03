@@ -5,17 +5,23 @@
 class InputSystem
 {
 public:
-	InputSystem() {}
-	~InputSystem() {}
-
 	void update();
 	void addListner(InputListener* listener);
 	void removeListner(InputListener* listener);
 
 	void setCursorPosition(const Point& pos);
 	void showCursor(bool show);
-public:
+public: //singleton
 	static InputSystem* get();
+	static void initialize();
+	static void destroy();
+
+private:
+	static InputSystem* sharedInstance;
+	InputSystem() {}
+	InputSystem(InputSystem const&) {}
+	InputSystem& operator=(InputSystem const&) {};
+	~InputSystem();
 
 private:
 	std::unordered_set<InputListener*> m_set_listeners;

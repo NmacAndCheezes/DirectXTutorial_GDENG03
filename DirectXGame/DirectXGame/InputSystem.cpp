@@ -1,5 +1,8 @@
 #include "InputSystem.h"
 #include <Windows.h>
+
+InputSystem* InputSystem::sharedInstance = nullptr;
+
 void InputSystem::update()
 {
 	POINT current_mouse_pos = {};
@@ -109,4 +112,20 @@ InputSystem* InputSystem::get()
 {
 	static InputSystem system;
 	return &system;
+}
+
+void InputSystem::initialize()
+{
+	InputSystem::sharedInstance = new InputSystem();
+}
+
+void InputSystem::destroy()
+{
+	if (!InputSystem::sharedInstance) return;
+	delete InputSystem::sharedInstance;
+}
+
+InputSystem::~InputSystem()
+{
+	InputSystem::sharedInstance = nullptr;
 }

@@ -73,7 +73,6 @@ void AppWindow::onUpdate()
 void AppWindow::onDestroy()
 {
 	Window::onDestroy();
-	GraphicsEngine::get()->release();
 	AGameObjectManager::get()->release();
 }
 
@@ -87,22 +86,22 @@ void AppWindow::onKillFocus()
 	cam->onKillFocus();
 }
 
-SwapChain* AppWindow::getSwapChain()
+SwapChainPtr AppWindow::getSwapChain()
 {
 	return m_swap_chain;
 }
 
-VertexShader* AppWindow::getVertexShader()
+VertexShaderPtr AppWindow::getVertexShader()
 {
 	return m_vs;
 }
 
-PixelShader* AppWindow::getPixelShader()
+PixelShaderPtr AppWindow::getPixelShader()
 {
 	return m_ps;
 }
 
-ConstantBuffer* AppWindow::getConstantBuffer()
+ConstantBufferPtr AppWindow::getConstantBuffer()
 {
 	return m_cb;
 }

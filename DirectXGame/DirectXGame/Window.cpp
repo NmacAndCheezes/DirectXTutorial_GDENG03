@@ -1,33 +1,60 @@
+
+/*MIT License
+
+C++ 3D Game Tutorial Series (https://github.com/PardCode/CPP-3D-Game-Tutorial-Series)
+
+Copyright (c) 2019-2022, PardCode
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.*/
+
+
 #include "Window.h"
+#include <exception>
+//Window* window=nullptr;
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
-	switch (msg) 
+	//GetWindowLong(hwnd,)
+	switch (msg)
 	{
-	case WM_CREATE: //event on Create
+	case WM_CREATE:
 	{
 		// Event fired when the window is created
 		// collected here..
-		Window* window = (Window*)((LPCREATESTRUCT)lparam)->lpCreateParams;
-		// .. and then stored for later lookup
-		SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)window);
-		window->SetHWND(hwnd);
-		window->onCreate();
+
 		break;
 	}
-	case WM_SETFOCUS: //event on focus on window
+	case WM_SETFOCUS:
 	{
+		// Event fired when the window get focus
 		Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
-		window->onFocus();
+		if (window) window->onFocus();
 		break;
 	}
-	case WM_KILLFOCUS: //event on focus on window
+	case WM_KILLFOCUS:
 	{
+		// Event fired when the window lost focus
 		Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
 		window->onKillFocus();
 		break;
 	}
-	case WM_DESTROY: //event on Destroy
+	case WM_DESTROY:
 	{
 		// Event fired when the window is destroyed
 		Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
@@ -35,14 +62,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 		::PostQuitMessage(0);
 		break;
 	}
+
+
 	default:
 		return ::DefWindowProc(hwnd, msg, wparam, lparam);
 	}
+
+	return NULL;
 }
 
-bool Window::init()
+
+
+
+Window::Window()
 {
-	//Initializing WNDCLASSEX obj
+	//Setting up WNDCLASSEX object
 	WNDCLASSEX wc;
 	wc.cbClsExtra = NULL;
 	wc.cbSize = sizeof(WNDCLASSEX);
@@ -57,55 +91,66 @@ bool Window::init()
 	wc.style = NULL;
 	wc.lpfnWndProc = &WndProc;
 
-	if (!::RegisterClassEx(&wc)) return false; // If registration failed return false
-	
-	//if (!window) window = this;
+	if (!::RegisterClassEx(&wc)) // If the registration of class will fail, the function will return false
+		throw std::exception("Window not created successfully");
 
-	m_hwnd = ::CreateWindowEx(
-		WS_EX_OVERLAPPEDWINDOW,
-		L"MyWindowClass",
-		L"DirectX App",
-		WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT,
-		CW_USEDEFAULT,
-		1024, 768,
-		NULL, NULL, NULL, this);
-	
-	if (!m_hwnd) return false; //if creation fails
+	/*if (!window)
+	window = this;*/
 
+	//Creation of the window
+	m_hwnd = ::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, L"MyWindowClass", L"DirectX Application",
+		WS_CAPTION | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, 1024, 768,
+		NULL, NULL, NULL, NULL);
+
+	//if the creation fail return false
+	if (!m_hwnd)
+		throw std::exception("Window not created successfully");
+
+
+	//show up the window
 	::ShowWindow(m_hwnd, SW_SHOW);
 	::UpdateWindow(m_hwnd);
 
-	m_is_running = true;
-	return true;
+
+
+
+	//set this flag to true to indicate that the window is initialized and running
+	m_is_run = true;
 }
+
+
+
 
 bool Window::broadcast()
 {
 	MSG msg;
-	
+
+	if (!this->m_is_init)
+	{
+		SetWindowLongPtr(m_hwnd, GWLP_USERDATA, (LONG_PTR)this);
+		this->onCreate();
+		this->m_is_init = true;
+	}
+
 	this->onUpdate();
 
-	while (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0) {
+	while (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0)
+	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
 
-	Sleep(0);
+	Sleep(1);
 
 	return true;
 }
 
-bool Window::release()
-{
-	if (!::DestroyWindow(m_hwnd)) return false;
-	
-	return true;
-}
 
-bool Window::isRunning()
+bool Window::isRun()
 {
-	return m_is_running;
+	if (m_is_run)
+		broadcast();
+	return m_is_run;
 }
 
 RECT Window::getClientWindowRect()
@@ -115,12 +160,27 @@ RECT Window::getClientWindowRect()
 	return rc;
 }
 
-void Window::SetHWND(HWND hwnd)
+void Window::onCreate()
 {
-	this->m_hwnd = hwnd;
+}
+
+void Window::onUpdate()
+{
 }
 
 void Window::onDestroy()
 {
-	m_is_running = false;
+	m_is_run = false;
+}
+
+void Window::onFocus()
+{
+}
+
+void Window::onKillFocus()
+{
+}
+
+Window::~Window()
+{
 }

@@ -3,20 +3,17 @@
 
 #include <string>
 #include <iostream>
+#include <exception>
 
 GraphicsEngine* GraphicsEngine::sharedInstance = nullptr;
-bool GraphicsEngine::init()
-{
-	m_render_system = new RenderSystem();
-	m_render_system->init();
-	return true;
-}
 
-bool GraphicsEngine::release()
+GraphicsEngine::GraphicsEngine()
 {
-	m_render_system->release();
-	delete m_render_system;
-	return true;
+	try
+	{
+		m_render_system = new RenderSystem();
+	}
+	catch (...) { throw std::exception("GraphicsEngine was not created"); }
 }
 
 RenderSystem* GraphicsEngine::getRenderSystem()
@@ -33,12 +30,17 @@ GraphicsEngine* GraphicsEngine::get()
 void GraphicsEngine::initialize()
 {
 	sharedInstance = new GraphicsEngine();
-	sharedInstance->init();
 }
 
 void GraphicsEngine::destroy()
 {
-	if (sharedInstance != nullptr)
-		sharedInstance->release();
+	if (!GraphicsEngine::sharedInstance) return;
+	delete GraphicsEngine::sharedInstance;
+}
+
+GraphicsEngine::~GraphicsEngine()
+{
+	GraphicsEngine::sharedInstance = nullptr;
+	delete m_render_system;
 }
 

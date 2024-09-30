@@ -30,16 +30,16 @@ public:
 	virtual void onKillFocus() override;
 
 public: //getters
-	SwapChain* getSwapChain();
-	VertexShader* getVertexShader();
-	PixelShader* getPixelShader();
-	ConstantBuffer* getConstantBuffer();
+	SwapChainPtr getSwapChain();
+	VertexShaderPtr getVertexShader();
+	PixelShaderPtr getPixelShader();
+	ConstantBufferPtr getConstantBuffer();
 
 private:
-	SwapChain* m_swap_chain = NULL;
-	VertexShader* m_vs = NULL;
-	PixelShader* m_ps = NULL;
-	ConstantBuffer* m_cb = NULL;
+	SwapChainPtr m_swap_chain = NULL;
+	VertexShaderPtr m_vs = NULL;
+	PixelShaderPtr m_ps = NULL;
+	ConstantBufferPtr m_cb = NULL;
 private:
 	Camera* cam = NULL;
 	//Matrix4x4 m_world_cam;

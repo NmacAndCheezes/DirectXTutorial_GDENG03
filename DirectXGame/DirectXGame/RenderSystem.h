@@ -6,17 +6,19 @@
 class RenderSystem
 {
 public:
+	RenderSystem();
 	bool init();
 	bool release();
+	~RenderSystem();
 
 public: //Get other classes
-	SwapChain* createSwapChain(HWND hwnd, UINT width, UINT height);
-	DeviceContext* getImmediateDeviceContext();
-	VertexBuffer* createVertexBuffer(void* list_vertices, UINT size_vertex, UINT size_list, void* shader_byte_code, UINT size_byte_shader);
-	VertexShader* createVertexShader(const void* shader_byte_code, size_t byte_code_size);
-	PixelShader* createPixelShader(const void* shader_byte_code, size_t byte_code_size);
-	ConstantBuffer* createConstantBuffer(void* buffer, UINT size_buffer);
-	IndexBuffer* createIndexBuffer(void* list_indices, UINT size_list);
+	SwapChainPtr createSwapChain(HWND hwnd, UINT width, UINT height);
+	DeviceContextPtr getImmediateDeviceContext();
+	VertexBufferPtr createVertexBuffer(void* list_vertices, UINT size_vertex, UINT size_list, void* shader_byte_code, UINT size_byte_shader);
+	VertexShaderPtr createVertexShader(const void* shader_byte_code, size_t byte_code_size);
+	PixelShaderPtr createPixelShader(const void* shader_byte_code, size_t byte_code_size);
+	ConstantBufferPtr createConstantBuffer(void* buffer, UINT size_buffer);
+	IndexBufferPtr createIndexBuffer(void* list_indices, UINT size_list);
 
 public: //shaders
 	//vertex shader
@@ -25,7 +27,7 @@ public: //shaders
 	void releaseCompiledShader();
 
 private: //DeviceContext
-	DeviceContext* m_imm_device_context = NULL;
+	DeviceContextPtr m_imm_device_context = NULL;
 
 private: //Graphics
 	ID3D11Device* m_d3d_device = NULL;

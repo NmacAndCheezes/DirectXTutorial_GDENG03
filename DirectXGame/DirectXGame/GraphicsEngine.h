@@ -5,8 +5,6 @@
 class GraphicsEngine
 {
 public:
-	bool init();
-	bool release();
 	RenderSystem* getRenderSystem();
 public: //singleton
 	static GraphicsEngine* get();
@@ -15,10 +13,10 @@ public: //singleton
 	
 private:
 	static GraphicsEngine* sharedInstance;
-	GraphicsEngine() {}
-	GraphicsEngine(GraphicsEngine const&) {};
+	GraphicsEngine();
+	GraphicsEngine(GraphicsEngine const&) {}
 	GraphicsEngine& operator=(GraphicsEngine const&) {};
-	~GraphicsEngine() {}
+	~GraphicsEngine();
 
 private:
 	RenderSystem* m_render_system = nullptr;

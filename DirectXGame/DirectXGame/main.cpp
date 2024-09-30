@@ -1,17 +1,31 @@
 #include "AppWindow.h"
-#include "GraphicsEngine.h"
+#include "InputSystem.h"
+
 
 int main()
 {
-	GraphicsEngine::initialize();
-	AppWindow* app = new AppWindow();
+	try
+	{
+		GraphicsEngine::initialize();
+		InputSystem::initialize();
+	}
+	catch (...) { return -1; }
 
-	if (app->init()) {
-		while (app->isRunning()) {
-			app->broadcast();
+	{
+		try
+		{
+			AppWindow app;
+			while (app.isRun());
+		}
+		catch (...) {
+			InputSystem::destroy();
+			GraphicsEngine::destroy();
+			return -1;
 		}
 	}
-	delete app;
-	
+
+	InputSystem::destroy();
+	GraphicsEngine::destroy();
+
 	return 0;
 }

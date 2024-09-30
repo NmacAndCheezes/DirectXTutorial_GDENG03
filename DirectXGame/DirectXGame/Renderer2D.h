@@ -11,9 +11,9 @@ public:
 	~Renderer2D() {}
 
 protected:
-	VertexBuffer* m_vb = nullptr;
-	VertexShader* m_vs = nullptr;
-	PixelShader* m_ps = nullptr;
+	VertexBufferPtr m_vb = nullptr;
+	VertexShaderPtr m_vs = nullptr;
+	PixelShaderPtr m_ps = nullptr;
 
 	struct vertex
 	{

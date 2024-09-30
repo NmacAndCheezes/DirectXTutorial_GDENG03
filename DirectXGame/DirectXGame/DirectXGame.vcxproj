@@ -166,6 +166,7 @@
     <ClInclude Include="AGameObjectManager.h" />
     <ClInclude Include="AppWindow.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraManager.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="Cube.h" />

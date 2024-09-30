@@ -14,10 +14,10 @@ public:
 	~Renderer3D() {}
 
 protected:
-	VertexBuffer* m_vb = nullptr;
-	VertexShader* m_vs = nullptr;
-	PixelShader* m_ps = nullptr;
-	IndexBuffer* m_ib = nullptr;
+	VertexBufferPtr m_vb = nullptr;
+	VertexShaderPtr m_vs = nullptr;
+	PixelShaderPtr m_ps = nullptr;
+	IndexBufferPtr m_ib = nullptr;
 
 	struct vertex
 	{
