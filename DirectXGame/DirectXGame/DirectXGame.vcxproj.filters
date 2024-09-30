@@ -45,27 +45,6 @@
     <ClCompile Include="GraphicsEngine.cpp">
       <Filter>GameEngine\GraphicsEngine</Filter>
     </ClCompile>
-    <ClCompile Include="SwapChain.cpp">
-      <Filter>GameEngine\GraphicsEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="DeviceContext.cpp">
-      <Filter>GameEngine\GraphicsEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexBuffer.cpp">
-      <Filter>GameEngine\GraphicsEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexShader.cpp">
-      <Filter>GameEngine\GraphicsEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="PixelShader.cpp">
-      <Filter>GameEngine\GraphicsEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="ConstantBuffer.cpp">
-      <Filter>GameEngine\GraphicsEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="IndexBuffer.cpp">
-      <Filter>GameEngine\GraphicsEngine</Filter>
-    </ClCompile>
     <ClCompile Include="InputSystem.cpp">
       <Filter>GameEngine\InputSystem</Filter>
     </ClCompile>
@@ -74,9 +53,6 @@
     </ClCompile>
     <ClCompile Include="Cube.cpp">
       <Filter>GameEngine\GraphicsEngine\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>GameEngine\GraphicsEngine</Filter>
     </ClCompile>
     <ClCompile Include="EngineTime.cpp">
       <Filter>GameEngine\EngineTime</Filter>
@@ -96,12 +72,38 @@
     <ClCompile Include="Quad.cpp">
       <Filter>GameEngine\GraphicsEngine\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="QuadRenderer.cpp">
       <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Renderer2D.cpp">
       <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSystem.cpp">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBuffer.cpp">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceContext.cpp">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelShader.cpp">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="SwapChain.cpp">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexShader.cpp">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>GameEngine\GraphicsEngine\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -114,32 +116,11 @@
     <ClInclude Include="GraphicsEngine.h">
       <Filter>GameEngine\GraphicsEngine</Filter>
     </ClInclude>
-    <ClInclude Include="SwapChain.h">
-      <Filter>GameEngine\GraphicsEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="DeviceContext.h">
-      <Filter>GameEngine\GraphicsEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexBuffer.h">
-      <Filter>GameEngine\GraphicsEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexShader.h">
-      <Filter>GameEngine\GraphicsEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="PixelShader.h">
-      <Filter>GameEngine\GraphicsEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="ConstantBuffer.h">
-      <Filter>GameEngine\GraphicsEngine</Filter>
-    </ClInclude>
     <ClInclude Include="Vector3D.h">
       <Filter>GameEngine\Math</Filter>
     </ClInclude>
     <ClInclude Include="Matrix4x4.h">
       <Filter>GameEngine\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="IndexBuffer.h">
-      <Filter>GameEngine\GraphicsEngine</Filter>
     </ClInclude>
     <ClInclude Include="InputSystem.h">
       <Filter>GameEngine\InputSystem</Filter>
@@ -159,9 +140,6 @@
     <ClInclude Include="Cube.h">
       <Filter>GameEngine\GraphicsEngine\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>GameEngine\GraphicsEngine</Filter>
-    </ClInclude>
     <ClInclude Include="EngineTime.h">
       <Filter>GameEngine\EngineTime</Filter>
     </ClInclude>
@@ -180,12 +158,41 @@
     <ClInclude Include="Quad.h">
       <Filter>GameEngine\GraphicsEngine\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerController.h" />
     <ClInclude Include="QuadRenderer.h">
       <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Renderer2D.h">
       <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem.h">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBuffer.h">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceContext.h">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexBuffer.h">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelShader.h">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="SwapChain.h">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexShader.h">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>GameEngine\GraphicsEngine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Prerequisites.h">
+      <Filter>GameEngine\GraphicsEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

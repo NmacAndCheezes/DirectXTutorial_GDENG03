@@ -1,7 +1,8 @@
 #include "VertexBuffer.h"
-#include "GraphicsEngine.h"
+#include "RenderSystem.h"
+#include <exception>
 
-bool VertexBuffer::load(void* list_vertices, UINT size_vertex, UINT size_list, void* shader_byte_code, size_t size_byte_shader)
+VertexBuffer::VertexBuffer(void* list_vertices, UINT size_vertex, UINT size_list, void* shader_byte_code, size_t size_byte_shader, RenderSystem* system) : m_layout(0), m_buffer(0), m_system(system)
 {
     if (m_buffer)m_buffer->Release();
     if (m_layout)m_layout->Release();
@@ -12,22 +13,22 @@ bool VertexBuffer::load(void* list_vertices, UINT size_vertex, UINT size_list, v
     buff_desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
     buff_desc.CPUAccessFlags = 0;
     buff_desc.MiscFlags = 0;
-    
+
     D3D11_SUBRESOURCE_DATA init_data = {};
     init_data.pSysMem = list_vertices;
 
     m_size_vertex = size_vertex;
     m_size_list = size_list;
 
-    if (FAILED(GraphicsEngine::get()->m_d3d_device->CreateBuffer( 
-        &buff_desc, 
-        &init_data, 
-        &m_buffer ))
-        ) 
+    if (FAILED(m_system->m_d3d_device->CreateBuffer(
+        &buff_desc,
+        &init_data,
+        &m_buffer))
+        )
     {
-        return false;
+        throw std::exception("[VertexBuffer] buffer was not created");
     }
-    
+
     D3D11_INPUT_ELEMENT_DESC layout[] =
     {
         //SEMANTIC NAME - SEMANTIC INDEX - FORMAT - INPUT SLOT - ALIGNED BYTE OFFSET - INPUT SLOT CLASS - INSTANCE DATA STEP RATE
@@ -39,31 +40,28 @@ bool VertexBuffer::load(void* list_vertices, UINT size_vertex, UINT size_list, v
     UINT size_layout = ARRAYSIZE(layout);
 
     if (FAILED(
-        GraphicsEngine::get()->m_d3d_device->CreateInputLayout
-            (
-            layout, 
-            size_layout, 
-            shader_byte_code, 
-            size_byte_shader, 
+        m_system->m_d3d_device->CreateInputLayout
+        (
+            layout,
+            size_layout,
+            shader_byte_code,
+            size_byte_shader,
             &m_layout
-            )
         )
     )
+        )
     {
-        return false;
+        throw std::exception("[VertexBuffer] InputLayout was not created");
     }
-    return true;
-}
-
-bool VertexBuffer::release()
-{
-    m_layout->Release();
-    m_buffer->Release();
-    delete this;
-    return true;
 }
 
 UINT VertexBuffer::getSizeVertexList()
 {
     return this->m_size_list;
+}
+
+VertexBuffer::~VertexBuffer()
+{
+    m_layout->Release();
+    m_buffer->Release();
 }

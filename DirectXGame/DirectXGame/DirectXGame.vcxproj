@@ -151,11 +151,11 @@
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PixelShader.cpp" />
-    <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="Quad.cpp" />
     <ClCompile Include="QuadRenderer.cpp" />
     <ClCompile Include="Renderer2D.cpp" />
     <ClCompile Include="Renderer3D.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="VertexShader.cpp" />
@@ -177,12 +177,13 @@
     <ClInclude Include="InputListener.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="Matrix4x4.h" />
-    <ClInclude Include="PlayerController.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="Prerequisites.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="QuadRenderer.h" />
     <ClInclude Include="Renderer2D.h" />
     <ClInclude Include="Renderer3D.h" />
+    <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="Vector3D.h" />
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="SwapChain.h" />

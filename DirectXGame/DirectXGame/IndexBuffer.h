@@ -1,21 +1,19 @@
 #pragma once
 #pragma once
 #include <d3d11.h>
-
-class DeviceContext;
+#include "Prerequisites.h"
 
 class IndexBuffer
 {
 public:
-	IndexBuffer() : m_buffer(0) {}
-	bool load(void* list_indices, UINT size_list);
-	bool release();
+	IndexBuffer(void* list_indices, UINT size_list, RenderSystem* system);
 	UINT getSizeIndexList();
-	~IndexBuffer() {}
+	~IndexBuffer();
 private:
 	UINT m_size_list = 0;
 private:
 	ID3D11Buffer* m_buffer = NULL;
+	RenderSystem* m_system = nullptr;
 private:
 	friend class DeviceContext;
 };
