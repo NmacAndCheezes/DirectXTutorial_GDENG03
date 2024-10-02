@@ -51,14 +51,20 @@ void AppWindow::onCreate()
 
 	m_cb = GraphicsEngine::get()->getRenderSystem()->createConstantBuffer(&cc, sizeof(constant));
 
-	Cube* obj = new Cube(Vector3D(1.5f,0,0));
-	AGameObjectManager::get()->registerAGameObject(obj);
+	Cube* cobj = new Cube(Vector3D(1.5f,0,0));
+	AGameObjectManager::get()->registerAGameObject(cobj);
 
-	obj = new Cube(Vector3D(0, 0, 0));
-	AGameObjectManager::get()->registerAGameObject(obj);
+	Quad* qobj = new Quad(Vector3D(0, 0, 0));
+	AGameObjectManager::get()->registerAGameObject(qobj);
 
-	obj = new Cube(Vector3D(-1.5, 0, 0));
-	AGameObjectManager::get()->registerAGameObject(obj);
+	cobj = new Cube(Vector3D(-1.5, 0, 0));
+	AGameObjectManager::get()->registerAGameObject(cobj);
+
+	qobj = new Quad(Vector3D(-3.0f, 0, 0));
+	AGameObjectManager::get()->registerAGameObject(qobj);
+
+	cobj = new Cube(Vector3D(3.0f, 0, 0));
+	AGameObjectManager::get()->registerAGameObject(cobj);
 
 }
 
