@@ -21,9 +21,9 @@ struct constant
 	unsigned int m_time = 0;
 };
 
-Camera::Camera(AppWindow* window) : m_window(window)
+Camera::Camera(AppWindow* window, const Vector3D& position) : m_window(window), AGameObject(position)
 {
-	m_world_cam.setTranslation(Vector3D(0, 0, -2));
+	m_world_cam.setTranslation(m_position);
 }
 
 void Camera::update()

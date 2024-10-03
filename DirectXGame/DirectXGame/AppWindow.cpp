@@ -24,13 +24,13 @@ void AppWindow::onCreate()
 {
 	Window::onCreate();
 
-	Camera* cam = new Camera(this);
+	Camera* cam = new Camera(this, Vector3D(0,0,-2));
 	AGameObjectManager::get()->registerAGameObject(cam);
 	
-	Camera* cam2 = new Camera(this);
+	Camera* cam2 = new Camera(this, Vector3D(1, 0, -2));
 	AGameObjectManager::get()->registerAGameObject(cam2);
 
-	Camera* cam3 = new Camera(this);
+	Camera* cam3 = new Camera(this, Vector3D(-1, 0, -2));
 	AGameObjectManager::get()->registerAGameObject(cam3);
 	
 	m_cm = new CameraManager();

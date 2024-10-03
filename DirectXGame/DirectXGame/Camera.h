@@ -8,7 +8,8 @@ class AppWindow;
 class Camera : /*private InputListener,*/ public AGameObject
 {
 public:
-	Camera(AppWindow* window);
+	Camera(AppWindow* window, const Vector3D& position);
+	//AGameObject::AGameObject(const Vector3D& position) : m_position(position) { }
 	virtual void update() override;
 	virtual void release() override;
 	~Camera() {}
