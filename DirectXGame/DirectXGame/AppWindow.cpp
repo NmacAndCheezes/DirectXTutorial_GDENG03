@@ -115,12 +115,14 @@ void AppWindow::onKeyDown(int key)
 
 void AppWindow::onFocus()
 {
-	m_cm->onFocus();
+	//m_cm->onFocus();
+	InputSystem::get()->addListner(cam);
 }
 
 void AppWindow::onKillFocus()
 {
-	m_cm->onKillFocus();
+	//m_cm->onKillFocus();
+	InputSystem::get()->removeListner(cam);
 }
 
 SwapChainPtr AppWindow::getSwapChain()
