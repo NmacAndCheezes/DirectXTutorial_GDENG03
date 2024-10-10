@@ -26,6 +26,7 @@ SOFTWARE.*/
 
 #include "Window.h"
 #include <exception>
+#include "EngineTime.h"
 //Window* window=nullptr;
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
@@ -123,6 +124,7 @@ Window::Window()
 
 bool Window::broadcast()
 {
+	EngineTime::LogFrameStart();
 	MSG msg;
 
 	if (!this->m_is_init)
@@ -141,7 +143,7 @@ bool Window::broadcast()
 	}
 
 	Sleep(1);
-
+	EngineTime::LogFrameEnd();
 	return true;
 }
 

@@ -1,16 +1,33 @@
 #pragma once
-#include "Window.h"
+#include <iostream>
+#include <chrono>
+#include <ctime>
+
+class Window;
+
 class EngineTime
 {
 public:
-	void update();
-	float getDT();
-
-public: //singleton
-	static EngineTime* get();
+	static void initialize();
+	static void destroy();
+	static double getDeltaTime();
 
 private:
-	float m_old_delta = 0;
-	float m_new_delta = 0;
-	float m_delta_time = 0;
+	EngineTime() {}
+	~EngineTime() {}
+	EngineTime(EngineTime const&) {};
+	EngineTime& operator=(EngineTime const&) {}
+
+	static EngineTime* sharedInstance;
+
+	std::chrono::system_clock::time_point start;
+	std::chrono::system_clock::time_point end;
+
+	double deltaTime = 0.0f;
+
+	static void LogFrameStart();
+	static void LogFrameEnd();
+
+	friend class Window;
 };
+

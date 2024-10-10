@@ -1,6 +1,13 @@
 #include "AppWindow.h"
 #include "InputSystem.h"
+#include "EngineTime.h"
 
+void destroySingletons()
+{
+	InputSystem::destroy();
+	GraphicsEngine::destroy();
+	EngineTime::destroy();
+}
 
 int main()
 {
@@ -8,6 +15,7 @@ int main()
 	{
 		GraphicsEngine::initialize();
 		InputSystem::initialize();
+		EngineTime::initialize();
 	}
 	catch (...) { return -1; }
 
@@ -18,14 +26,13 @@ int main()
 			while (app.isRun());
 		}
 		catch (...) {
-			InputSystem::destroy();
-			GraphicsEngine::destroy();
+			destroySingletons();
 			return -1;
 		}
 	}
 
-	InputSystem::destroy();
-	GraphicsEngine::destroy();
+	destroySingletons();
 
 	return 0;
 }
+
