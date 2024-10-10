@@ -31,7 +31,6 @@ void Camera::update()
 	AGameObject::update();
 
 	constant cc;
-	cc.m_time = ::GetTickCount64();
 
 	cc.m_world.setIdentity();
 
@@ -64,31 +63,7 @@ void Camera::update()
 	}
 
 	world_cam.inverse();
-	viewMatrix = world_cam;
-
-	viewMatrix.printMatrix();
-#if 0
-	
-
-	cc.m_view = world_cam;
-
-	if (isPerspective)
-	{
-		int width = m_window->getClientWindowRect().right - m_window->getClientWindowRect().left;
-		int height = m_window->getClientWindowRect().bottom - m_window->getClientWindowRect().top;
-		cc.m_proj.setPerspectiveFovLH(1.57f, ((float)width / (float)height), 0.1f, 100.0f);
-	}
-	else
-	{
-		cc.m_proj.setOrthoLH
-		(
-			(m_window->getClientWindowRect().right - m_window->getClientWindowRect().left) / (400.0f + m_right),
-			(m_window->getClientWindowRect().bottom - m_window->getClientWindowRect().top) / (400.0f + m_right),
-			-100.0f,
-			100.0f
-		);
-	}
-#endif
+	this->viewMatrix = world_cam;
 }
 
 void Camera::onKeyDown(int key)

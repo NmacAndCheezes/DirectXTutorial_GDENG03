@@ -49,14 +49,15 @@ void AppWindow::onCreate()
 	void* shader_byte_code = nullptr;
 	size_t size_shader = 0;
 	GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
+	m_vs = GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
 
-	Circle* qobj = new Circle(Vector3D(0, 0, -10), 10, 0.1, shader_byte_code, size_shader);
+	Circle* qobj = new Circle(Vector3D(0, 0, 2), 10, 1.f, shader_byte_code, size_shader);
 	AGameObjectManager::get()->registerAGameObject(qobj);
 
-	Cube* cobj = new Cube(Vector3D(0, 0, 0), shader_byte_code, size_shader);
+	Cube* cobj = new Cube(Vector3D(0, 0, 2), shader_byte_code, size_shader);
 	AGameObjectManager::get()->registerAGameObject(cobj);
 
-	m_vs = GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
+	
 	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 #pragma endregion
 
@@ -66,7 +67,7 @@ void AppWindow::onCreate()
 	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 #pragma endregion
 
-	cam = new Camera(this, Vector3D(0, 0, 10));
+	cam = new Camera(this, Vector3D(0, 0, -2));
 	AGameObjectManager::get()->registerAGameObject(cam);
 	InputSystem::get()->addListner(cam);
 }
@@ -76,6 +77,9 @@ void AppWindow::onUpdate()
 	Window::onUpdate();
 
 	InputSystem::get()->update();
+
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexShader(this->m_vs);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(this->m_ps);
 	//CLEAR THE RENDER TARGET 
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->clearRenderTargetColor(
 		this->m_swap_chain,
@@ -107,8 +111,15 @@ void AppWindow::onKeyDown(int key)
 	{
 		if (key == ' ')
 		{
-			//Circle* qobj = new Circle(Vector3D(0, 0, 0), 50, 0.1);
-			//AGameObjectManager::get()->registerAGameObject(qobj);
+			void* shader_byte_code = nullptr;
+			size_t size_shader = 0;
+			GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
+			VertexShaderPtr vs = GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
+			Circle* qobj = new Circle(Vector3D(0, 0, 2), 10, 1.f, shader_byte_code, size_shader);
+			AGameObjectManager::get()->registerAGameObject(qobj);
+			
+			GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
+
 		}
 	}
 }

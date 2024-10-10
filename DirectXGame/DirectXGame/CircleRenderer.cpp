@@ -101,7 +101,7 @@ void CircleRenderer::draw(AppWindow* target)
 	deviceContext->setConstantBuffer(target->getVertexShader(), m_cb);
 	deviceContext->setConstantBuffer(target->getPixelShader(), m_cb);
 
-	std::cout << m_vb->getSizeVertexList() << std::endl;
+	//cc.m_proj.printMatrix();
 	//deviceContext->setIndexBuffer(this->indexBuffer);
 	deviceContext->setVertexBuffer(m_vb);
 
