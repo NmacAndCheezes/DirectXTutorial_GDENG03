@@ -66,7 +66,7 @@ void Camera::update()
 	world_cam.inverse();
 	viewMatrix = world_cam;
 
-	
+	viewMatrix.printMatrix();
 #if 0
 	
 

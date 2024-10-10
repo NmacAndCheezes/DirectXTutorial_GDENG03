@@ -43,14 +43,14 @@ void AppWindow::onCreate()
 	InputSystem::get()->addListner(this);
 	InputSystem::get()->showCursor(false);
 	GraphicsEngine::get()->initialize();
-
+	m_swap_chain = GraphicsEngine::get()->getRenderSystem()->createSwapChain(this->m_hwnd, getWidth(), getHeight());
 #pragma region VertexShaders and Buffer
 
 	void* shader_byte_code = nullptr;
 	size_t size_shader = 0;
 	GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
 
-	Circle* qobj = new Circle(Vector3D(0, 0, 0), 10, 0.1, shader_byte_code, size_shader);
+	Circle* qobj = new Circle(Vector3D(0, 0, -10), 10, 0.1, shader_byte_code, size_shader);
 	AGameObjectManager::get()->registerAGameObject(qobj);
 
 	Cube* cobj = new Cube(Vector3D(0, 0, 0), shader_byte_code, size_shader);
@@ -65,8 +65,6 @@ void AppWindow::onCreate()
 	m_ps = GraphicsEngine::get()->getRenderSystem()->createPixelShader(shader_byte_code, size_shader);
 	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 #pragma endregion
-
-	m_swap_chain = GraphicsEngine::get()->getRenderSystem()->createSwapChain(this->m_hwnd, getWidth(), getHeight());
 
 	cam = new Camera(this, Vector3D(0, 0, 10));
 	AGameObjectManager::get()->registerAGameObject(cam);

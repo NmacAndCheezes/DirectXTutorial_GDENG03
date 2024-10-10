@@ -1,13 +1,14 @@
-﻿  AppWindow.cpp
+﻿  Camera.cpp
 C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Matrix4x4.h(154,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Matrix4x4.h(155,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Matrix4x4.h(156,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Matrix4x4.h(157,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\AppWindow.cpp(53,86): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\AppWindow.cpp(69,110): warning C4244: 'argument': conversion from 'float' to 'UINT', possible loss of data
-C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\AppWindow.cpp(69,97): warning C4244: 'argument': conversion from 'float' to 'UINT', possible loss of data
-C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\AppWindow.cpp(151,18): warning C4244: 'return': conversion from 'LONG' to 'float', possible loss of data
-C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\AppWindow.cpp(157,19): warning C4244: 'return': conversion from 'LONG' to 'float', possible loss of data
+C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Camera.cpp(34,30): warning C4244: '=': conversion from 'ULONGLONG' to 'unsigned int', possible loss of data
+C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Camera.cpp(96,27): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Camera.cpp(137,76): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Camera.cpp(138,75): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Camera.cpp(140,67): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Camera.cpp(140,52): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   CircleRenderer.cpp
 C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Matrix4x4.h(154,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Matrix4x4.h(155,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data

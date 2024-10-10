@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+
 class Vector3D 
 {
 public: //Classes
@@ -31,6 +33,11 @@ public: //Classes
 	Vector3D operator += (Vector3D vec)
 	{
 		return Vector3D(m_x, m_y, m_z) + vec;
+	}
+
+	void printVector()
+	{
+		std::cout << m_x << " ," << m_y << " ," << m_z << std::endl;
 	}
 
 	~Vector3D()

@@ -108,6 +108,7 @@ void CircleRenderer::draw(AppWindow* target)
 	deviceContext->setIndexBuffer(m_ib);
 	// FINALLY DRAW THE TRIANGLE
 	deviceContext->drawIndexedTriangleList(m_ib->getSizeIndexList(), 0, 0);
+	//attachedObject->position().printVector();
 
 
 }
