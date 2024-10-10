@@ -95,6 +95,14 @@ void AppWindow::onKeyDown(int key)
 	{
 		m_is_run = false;
 	}
+	else
+	{
+		if (key == ' ')
+		{
+			Circle* qobj = new Circle(Vector3D(0, 0, 0));
+			AGameObjectManager::get()->registerAGameObject(qobj);
+		}
+	}
 }
 
 void AppWindow::onFocus()

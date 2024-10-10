@@ -8,13 +8,13 @@
 
 Circle::Circle() : AGameObject()
 {
-	CircleRenderer* rend = new CircleRenderer(this, 10);
+	CircleRenderer* rend = new CircleRenderer(this, 20);
 	this->attachComponent(rend);
 }
 
 Circle::Circle(const Vector3D& position) : AGameObject(position)
 {
-	CircleRenderer* rend = new CircleRenderer(this, 10);
+	CircleRenderer* rend = new CircleRenderer(this, 20);
 	this->attachComponent(rend);
 }
 
