@@ -1,20 +1,31 @@
 #include "EngineTime.h"
 
-void EngineTime::update()
-{
-	m_old_delta = m_new_delta;
-	m_new_delta = ::GetTickCount64();
+EngineTime* EngineTime::sharedInstance = NULL;
 
-	m_delta_time = m_old_delta ? ((m_new_delta - m_old_delta) / 1000.0f) : 0;
+void EngineTime::initialize()
+{
+	sharedInstance = new EngineTime();
 }
 
-float EngineTime::getDT()
+void EngineTime::destroy()
 {
-	return m_delta_time;
+	sharedInstance = NULL;
 }
 
-EngineTime* EngineTime::get()
+double EngineTime::getDeltaTime()
 {
-	static EngineTime time;
-	return &time;
+	return sharedInstance->deltaTime;
+}
+
+void EngineTime::LogFrameStart()
+{
+	sharedInstance->start = std::chrono::system_clock::now();
+}
+
+void EngineTime::LogFrameEnd()
+{
+	sharedInstance->end = std::chrono::system_clock::now();
+	std::chrono::duration<double> elapsed_seconds = sharedInstance->end - sharedInstance->start;
+
+	sharedInstance->deltaTime = elapsed_seconds.count();
 }

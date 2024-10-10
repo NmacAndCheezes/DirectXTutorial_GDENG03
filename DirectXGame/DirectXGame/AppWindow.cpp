@@ -10,6 +10,7 @@
 #include "Cube.h"
 #include "Quad.h"
 #include "CameraManager.h"
+#include "Circle.h"
 
 __declspec(align(16))
 struct constant
@@ -40,7 +41,7 @@ void AppWindow::onCreate()
 	m_cm->registerCamera(cam3);
 	m_cm->ChangeCam(1);
 	InputSystem::get()->addListner(m_cm);
-
+	InputSystem::get()->addListner(this);
 	InputSystem::get()->showCursor(false);
 	GraphicsEngine::get()->initialize();
 	RECT rc = this->getClientWindowRect();
@@ -54,18 +55,11 @@ void AppWindow::onCreate()
 	Cube* cobj = new Cube(Vector3D(1.5f,0,0));
 	AGameObjectManager::get()->registerAGameObject(cobj);
 
-	Quad* qobj = new Quad(Vector3D(0, 0, 0));
+	Circle* qobj = new Circle(Vector3D(0, 0, 0));
 	AGameObjectManager::get()->registerAGameObject(qobj);
 
 	cobj = new Cube(Vector3D(-1.5, 0, 0));
 	AGameObjectManager::get()->registerAGameObject(cobj);
-
-	qobj = new Quad(Vector3D(-3.0f, 0, 0));
-	AGameObjectManager::get()->registerAGameObject(qobj);
-
-	cobj = new Cube(Vector3D(3.0f, 0, 0));
-	AGameObjectManager::get()->registerAGameObject(cobj);
-
 }
 
 void AppWindow::onUpdate()
@@ -87,14 +81,20 @@ void AppWindow::onUpdate()
 	AGameObjectManager::get()->update();
 
 	m_swap_chain->present(true);
-
-	EngineTime::get()->update();
 }
 
 void AppWindow::onDestroy()
 {
 	Window::onDestroy();
 	AGameObjectManager::get()->release();
+}
+
+void AppWindow::onKeyDown(int key)
+{
+	if (key == VK_ESCAPE)
+	{
+		m_is_run = false;
+	}
 }
 
 void AppWindow::onFocus()

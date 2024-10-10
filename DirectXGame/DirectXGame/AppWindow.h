@@ -12,7 +12,7 @@
 #include "Matrix4x4.h"
 #include "Camera.h"
 #include "CameraManager.h"
-class AppWindow : public Window
+class AppWindow : public Window, public InputListener
 {
 public:
 	AppWindow() {};
@@ -25,6 +25,18 @@ public:
 	virtual void onCreate() override;
 	virtual void onUpdate() override;
 	virtual void onDestroy() override;
+
+	virtual void onKeyDown(int key) override;
+	virtual void onKeyUp(int key) override {};
+
+	//Mouse
+	virtual void onMouseMove(const Point& mouse_pos) override {};
+
+	virtual void onLeftMouseDown(const Point& delta_mouse_pos) override {};
+	virtual void onLeftMouseUp(const Point& delta_mouse_pos) override {};
+
+	virtual void onRightMouseDown(const Point& delta_mouse_pos) override {};
+	virtual void onRightMouseUp(const Point& delta_mouse_pos) override {};
 
 	virtual void onFocus() override;
 	virtual void onKillFocus() override;

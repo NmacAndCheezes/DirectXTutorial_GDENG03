@@ -136,6 +136,8 @@
     <ClCompile Include="AppWindow.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraManager.cpp" />
+    <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="CircleRenderer.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="Cube.cpp" />
@@ -168,6 +170,8 @@
     <ClInclude Include="AppWindow.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraManager.h" />
+    <ClInclude Include="Circle.h" />
+    <ClInclude Include="CircleRenderer.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="Cube.h" />

@@ -38,40 +38,54 @@ void Camera::update()
 	Matrix4x4 world_cam;
 	world_cam.setIdentity();
 
-	Matrix4x4 temp;
+	if (isPerspective)
+	{
+		Matrix4x4 temp;
 
-	temp.setIdentity();
-	temp.setRotationX(m_rot_x);
-	world_cam *= temp;
+		temp.setIdentity();
+		temp.setRotationX(m_rot_x);
+		world_cam *= temp;
 
-	temp.setIdentity();
-	temp.setRotationY(m_rot_y);
-	world_cam *= temp;
+		temp.setIdentity();
+		temp.setRotationY(m_rot_y);
+		world_cam *= temp;
 
-	Vector3D new_pos = m_world_cam.getTranslation() + world_cam.getZDirection() * (m_forward * 0.3f);
+		Vector3D new_pos = m_world_cam.getTranslation() + world_cam.getZDirection() * (m_forward * 0.3f);
 
-	new_pos = new_pos + world_cam.getXDirection() * (m_right * 0.3f);
-	world_cam.setTranslation(new_pos);
+		new_pos = new_pos + world_cam.getXDirection() * (m_right * 0.3f);
+		world_cam.setTranslation(new_pos);
+	}
+	else
+	{
+		// pan camera depending on key presses
+		Vector3D new_pos = m_world_cam.getTranslation() + Vector3D(0, m_forward * 0.3f, 0);
+		new_pos = new_pos + Vector3D(m_right * 0.3f, 0, 0);
+		world_cam.setTranslation(new_pos);
+	}
+
 
 	m_world_cam = world_cam;
 
 	world_cam.inverse();
 
 	cc.m_view = world_cam;
-	
-	/*
-	cc.m_proj.setOrthoLH
-	(
-		(this->getClientWindowRect().right - this->getClientWindowRect().left) / 400.0f,
-		(this->getClientWindowRect().bottom - this->getClientWindowRect().top) / 400.0f,
-		-4.0f,
-		4.0f
-	);
-	*/
 
-	int width = m_window->getClientWindowRect().right - m_window->getClientWindowRect().left;
-	int height = m_window->getClientWindowRect().bottom - m_window->getClientWindowRect().top;
-	cc.m_proj.setPerspectiveForLH(1.57f, ((float)width / (float)height), 0.1f, 100.0f);
+	if (isPerspective)
+	{
+		int width = m_window->getClientWindowRect().right - m_window->getClientWindowRect().left;
+		int height = m_window->getClientWindowRect().bottom - m_window->getClientWindowRect().top;
+		cc.m_proj.setPerspectiveForLH(1.57f, ((float)width / (float)height), 0.1f, 100.0f);
+	}
+	else
+	{
+		cc.m_proj.setOrthoLH
+		(
+			(m_window->getClientWindowRect().right - m_window->getClientWindowRect().left) / (400.0f + m_right),
+			(m_window->getClientWindowRect().bottom - m_window->getClientWindowRect().top) / (400.0f + m_right),
+			-100.0f,
+			100.0f
+		);
+	}
 
 	m_window->getConstantBuffer()->update(GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext(), &cc);
 
@@ -121,8 +135,8 @@ void Camera::onMouseMove(const Point& mouse_pos)
 	int width = m_window->getClientWindowRect().right - m_window->getClientWindowRect().left;
 	int height = m_window->getClientWindowRect().bottom - m_window->getClientWindowRect().top;
 
-	m_rot_x += (mouse_pos.m_y - (height / 2.0f)) * EngineTime::get()->getDT() * 0.1f;
-	m_rot_y += (mouse_pos.m_x - (width / 2.0f)) * EngineTime::get()->getDT() * 0.1f;
+	m_rot_x += (mouse_pos.m_y - (height / 2.0f)) * EngineTime::getDeltaTime() * 0.1f;
+	m_rot_y += (mouse_pos.m_x - (width / 2.0f)) * EngineTime::getDeltaTime() * 0.1f;
 
 	InputSystem::get()->setCursorPosition(Point(width / 2.0f, height / 2.0f));
 }

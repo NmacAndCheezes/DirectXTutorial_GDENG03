@@ -49,6 +49,26 @@ CircleRenderer::CircleRenderer(AGameObject* obj, int segments) : Renderer2D(obj)
 		//std::cout << attachedObject->posX() << " " << attachedObject->posY() << " " << attachedObject->posZ() << " " << "\n";
 	}
 
+	std::vector<unsigned int> index_list;
+	for (int i = 1; i <= segments; i++)
+	{
+		if (i != segments)
+		{
+			index_list.push_back(0);
+			index_list.push_back(i + 1);
+			index_list.push_back(i);
+		}
+		else
+		{
+			index_list.push_back(0);
+			index_list.push_back(1);
+			index_list.push_back(segments);
+		}
+	}
+
+	UINT size_index_list = index_list.size();
+	m_ib = GraphicsEngine::get()->getRenderSystem()->createIndexBuffer(index_list.data(), size_index_list);
+
 	void* shader_byte_code = nullptr;
 	size_t size_shader = 0;
 
@@ -78,7 +98,7 @@ void CircleRenderer::update()
 	//SET THE VERTICES OF THE TRIANGLE TO DRAW
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
 	//SET THE INDICES OF THE TRIANGLE TO DRAW
-	//GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(m_ib);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(m_ib);
 	// FINALLY DRAW THE TRIANGLE
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawTriangleStrip(0, 0);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList(m_ib->getSizeIndexList(), 0, 0);
 }

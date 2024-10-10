@@ -114,6 +114,12 @@
     <ClCompile Include="Quad.cpp">
       <Filter>GameEngine\GraphicsEngine\GameObject\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Circle.cpp">
+      <Filter>GameEngine\GraphicsEngine\GameObject\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleRenderer.cpp">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -205,6 +211,12 @@
     </ClInclude>
     <ClInclude Include="Quad.h">
       <Filter>GameEngine\GraphicsEngine\GameObject\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle.h">
+      <Filter>GameEngine\GraphicsEngine\GameObject\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleRenderer.h">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
