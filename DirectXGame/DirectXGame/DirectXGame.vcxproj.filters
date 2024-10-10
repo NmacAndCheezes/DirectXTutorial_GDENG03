@@ -120,6 +120,9 @@
     <ClCompile Include="CircleRenderer.cpp">
       <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -220,6 +223,9 @@
     </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>GameEngine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>GameEngine\GraphicsEngine\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -10,7 +10,6 @@ public:
 	AGameObject();
 	AGameObject(const Vector3D& position);
 	virtual void update();
-	virtual void release();
 	virtual void attachComponent(Component* component);
 	virtual void detachComponent(Component* component);
 	~AGameObject() {}
@@ -19,21 +18,17 @@ public:
 	bool getActive();
 public:
 	Vector3D position();
+	Vector3D rotation();
+	Vector3D scale();
 private:
 	std::list<Component*> m_component_list;
 
 protected:
 	Vector3D m_position = Vector3D();
-	Matrix4x4 transform_matrix;
+	Vector3D m_rotation = Vector3D();
+	Vector3D m_scale = Vector3D(1,1,1);
 
-	__declspec(align(16))
-		struct constant
-	{
-		Matrix4x4 m_world;
-		Matrix4x4 m_view;
-		Matrix4x4 m_proj; //projection matrix
-		unsigned int m_time = 0;
-	};
+	
 
 	bool m_isActive = true;
 };

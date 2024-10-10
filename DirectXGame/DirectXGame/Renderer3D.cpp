@@ -6,30 +6,17 @@
 #include "IndexBuffer.h"
 #include "GraphicsEngine.h"
 #include "DeviceContext.h"
+#include "AppWindow.h"
 
-Renderer3D::Renderer3D(AGameObject* obj) : Component(obj)
+Renderer3D::Renderer3D(AGameObject* obj, void* shader_byte_code, size_t size_shader) : Renderer(obj, shader_byte_code, size_shader)
 {
 }
 
 void Renderer3D::update()
 {
-	//SET DEFAULT SHADER IN THE GRAPHICS PIPELINE TO BE ABLE TO DRAW
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexShader(m_vs);
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(m_ps);
-	//SET THE VERTICES OF THE TRIANGLE TO DRAW
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
-	//SET THE INDICES OF THE TRIANGLE TO DRAW
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(m_ib);
-	// FINALLY DRAW THE TRIANGLE
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList(m_ib->getSizeIndexList(), 0, 0);
+	
 }
 
-void Renderer3D::setVertex()
+void Renderer3D::draw(AppWindow* target)
 {
-
-}
-
-void Renderer3D::release()
-{
-	delete this;
 }

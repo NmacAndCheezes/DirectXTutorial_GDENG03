@@ -3,8 +3,8 @@
 class Circle : public AGameObject
 {
 public:
-	Circle();
-	Circle(const Vector3D& position);
+	Circle(int segments, float radius, void* shader_byte_code, size_t size_shader);
+	Circle(const Vector3D& position, int segments, float radius, void* shader_byte_code, size_t size_shader);
 	virtual void update() override;
 	~Circle();
 };

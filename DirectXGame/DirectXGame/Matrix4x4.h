@@ -42,7 +42,7 @@ public:
 		return Vector3D(m_mat[3][0], m_mat[3][1], m_mat[3][2]); 
 	}
 
-	void setPerspectiveForLH(float fov, float aspect, float znear, float zfar)
+	void setPerspectiveFovLH(float fov, float aspect, float znear, float zfar)
 	{
 		float yscale = 1.0f / tan(fov / 2.0f);
 		float xscale = yscale / aspect;
@@ -177,6 +177,20 @@ public:
 
 		std::cout << std::endl;
 	}
-private:
+
+	Matrix4x4 multiplyTo(Matrix4x4 matrix)
+	{
+		Matrix4x4 out;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				out.m_mat[i][j] =
+					this->m_mat[i][0] * matrix.m_mat[0][j] + this->m_mat[i][1] * matrix.m_mat[1][j] +
+					this->m_mat[i][2] * matrix.m_mat[2][j] + this->m_mat[i][3] * matrix.m_mat[3][j];
+			}
+		}
+
+		return out;
+	}
+
 	float m_mat[4][4] = {};
 };

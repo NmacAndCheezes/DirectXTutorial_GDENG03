@@ -189,3 +189,18 @@ void RenderSystem::releaseCompiledShader()
 {
 	if (m_blob) m_blob->Release();
 }
+
+void RenderSystem::registerRenderer(Renderer* rend)
+{
+	std::cout << "registered Renderer" << std::endl;
+	renderer_list.push_back(rend);
+}
+
+void RenderSystem::draw(AppWindow* target)
+{
+	//std::cout << "Renderers registered: " << renderer_list.size() << std::endl;
+	for (auto i : renderer_list)
+	{
+		i->draw(target);
+	}
+}

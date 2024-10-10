@@ -25,9 +25,7 @@ void AppWindow::onCreate()
 {
 	Window::onCreate();
 
-	Camera* cam = new Camera(this, Vector3D(0,0,-2));
-	AGameObjectManager::get()->registerAGameObject(cam);
-	
+#if 0
 	Camera* cam2 = new Camera(this, Vector3D(1, 0, -2));
 	AGameObjectManager::get()->registerAGameObject(cam2);
 
@@ -40,26 +38,39 @@ void AppWindow::onCreate()
 	m_cm->registerCamera(cam2);
 	m_cm->registerCamera(cam3);
 	m_cm->ChangeCam(1);
-	InputSystem::get()->addListner(m_cm);
+#endif
+	//InputSystem::get()->addListner(m_cm);
 	InputSystem::get()->addListner(this);
 	InputSystem::get()->showCursor(false);
 	GraphicsEngine::get()->initialize();
-	RECT rc = this->getClientWindowRect();
-	m_swap_chain = GraphicsEngine::get()->getRenderSystem()->createSwapChain(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);	
 
-	constant cc;
-	cc.m_time = 0;
+#pragma region VertexShaders and Buffer
 
-	m_cb = GraphicsEngine::get()->getRenderSystem()->createConstantBuffer(&cc, sizeof(constant));
+	void* shader_byte_code = nullptr;
+	size_t size_shader = 0;
+	GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
 
-	Cube* cobj = new Cube(Vector3D(1.5f,0,0));
-	AGameObjectManager::get()->registerAGameObject(cobj);
-
-	Circle* qobj = new Circle(Vector3D(0, 0, 0));
+	Circle* qobj = new Circle(Vector3D(0, 0, 0), 10, 0.1, shader_byte_code, size_shader);
 	AGameObjectManager::get()->registerAGameObject(qobj);
 
-	cobj = new Cube(Vector3D(-1.5, 0, 0));
+	Cube* cobj = new Cube(Vector3D(0, 0, 0), shader_byte_code, size_shader);
 	AGameObjectManager::get()->registerAGameObject(cobj);
+
+	m_vs = GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
+	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
+#pragma endregion
+
+#pragma region PixelShader
+	GraphicsEngine::get()->getRenderSystem()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
+	m_ps = GraphicsEngine::get()->getRenderSystem()->createPixelShader(shader_byte_code, size_shader);
+	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
+#pragma endregion
+
+	m_swap_chain = GraphicsEngine::get()->getRenderSystem()->createSwapChain(this->m_hwnd, getWidth(), getHeight());
+
+	cam = new Camera(this, Vector3D(0, 0, 10));
+	AGameObjectManager::get()->registerAGameObject(cam);
+	InputSystem::get()->addListner(cam);
 }
 
 void AppWindow::onUpdate()
@@ -71,22 +82,21 @@ void AppWindow::onUpdate()
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->clearRenderTargetColor(
 		this->m_swap_chain,
 		0,
-		0.3f, 
-		0.4f, 
+		0, 
+		0, 
 		1);
 	//SET VIEWPORT OF RENDER TARGET IN WHICH WE HAVE TO DRAW
 	RECT rc = this->getClientWindowRect();
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
 
 	AGameObjectManager::get()->update();
-
+	GraphicsEngine::get()->getRenderSystem()->draw(this);
 	m_swap_chain->present(true);
 }
 
 void AppWindow::onDestroy()
 {
 	Window::onDestroy();
-	AGameObjectManager::get()->release();
 }
 
 void AppWindow::onKeyDown(int key)
@@ -99,8 +109,8 @@ void AppWindow::onKeyDown(int key)
 	{
 		if (key == ' ')
 		{
-			Circle* qobj = new Circle(Vector3D(0, 0, 0));
-			AGameObjectManager::get()->registerAGameObject(qobj);
+			//Circle* qobj = new Circle(Vector3D(0, 0, 0), 50, 0.1);
+			//AGameObjectManager::get()->registerAGameObject(qobj);
 		}
 	}
 }
@@ -130,7 +140,19 @@ PixelShaderPtr AppWindow::getPixelShader()
 	return m_ps;
 }
 
-ConstantBufferPtr AppWindow::getConstantBuffer()
+Camera* AppWindow::getCamera()
 {
-	return m_cb;
+	return cam;
+}
+
+float AppWindow::getWidth()
+{
+	RECT rc = this->getClientWindowRect();
+	return rc.right - rc.left;
+}
+
+float AppWindow::getHeight()
+{
+	RECT rc = this->getClientWindowRect();
+	return rc.bottom - rc.top;
 }

@@ -15,16 +15,6 @@ void AGameObjectManager::update()
 	}
 }
 
-void AGameObjectManager::release()
-{
-	for (auto i : m_object_list)
-	{
-		i->release();
-	}
-
-	m_object_list.clear();
-}
-
 AGameObjectManager* AGameObjectManager::get()
 {
 	static AGameObjectManager manager;

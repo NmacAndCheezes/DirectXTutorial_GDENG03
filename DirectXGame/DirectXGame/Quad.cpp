@@ -6,15 +6,15 @@
 #include "QuadRenderer.h"
 #include <iostream>
 
-Quad::Quad() : AGameObject()
+Quad::Quad(void* shader_byte_code, size_t size_shader) : AGameObject()
 {
-	QuadRenderer* rend = new QuadRenderer(this);
+	QuadRenderer* rend = new QuadRenderer(this, shader_byte_code, size_shader);
 	this->attachComponent(rend);
 }
 
-Quad::Quad(const Vector3D& position) : AGameObject(position)
+Quad::Quad(const Vector3D& position, void* shader_byte_code, size_t size_shader) : AGameObject(position)
 {
-	QuadRenderer* rend = new QuadRenderer(this);
+	QuadRenderer* rend = new QuadRenderer(this, shader_byte_code, size_shader);
 	this->attachComponent(rend);
 }
 

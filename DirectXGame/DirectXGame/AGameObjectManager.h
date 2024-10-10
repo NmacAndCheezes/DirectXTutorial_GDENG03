@@ -9,7 +9,6 @@ public:
 	AGameObjectManager() {}
 	void registerAGameObject(AGameObject* obj);
 	void update();
-	void release();
 	~AGameObjectManager() {}
 
 public:

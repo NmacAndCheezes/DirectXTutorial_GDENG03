@@ -1,22 +1,18 @@
 #pragma once
-#include "Component.h"
+#include "Renderer.h"
 #include "Vector3D.h"
 #include "Matrix4x4.h"
 #include "Prerequisites.h"
 
-class Renderer3D : public Component
+class Renderer3D : public Renderer
 {
 public:
-	Renderer3D(AGameObject* obj);
+	Renderer3D(AGameObject* obj, void* shader_byte_code, size_t size_shader);
 	virtual void update() override;
-	void setVertex();
-	virtual void release() override;
+	virtual void draw(AppWindow* target) override;
 	~Renderer3D() {}
 
 protected:
-	VertexBufferPtr m_vb = nullptr;
-	VertexShaderPtr m_vs = nullptr;
-	PixelShaderPtr m_ps = nullptr;
 	IndexBufferPtr m_ib = nullptr;
 
 	struct vertex

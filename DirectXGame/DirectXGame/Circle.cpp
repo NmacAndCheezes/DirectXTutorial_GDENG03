@@ -6,15 +6,15 @@
 #include "CircleRenderer.h"
 #include <iostream>
 
-Circle::Circle() : AGameObject()
+Circle::Circle(int segments, float radius, void* shader_byte_code, size_t size_shader) : AGameObject()
 {
-	CircleRenderer* rend = new CircleRenderer(this, 20);
+	CircleRenderer* rend = new CircleRenderer(this, shader_byte_code, size_shader, segments, radius);
 	this->attachComponent(rend);
 }
 
-Circle::Circle(const Vector3D& position) : AGameObject(position)
+Circle::Circle(const Vector3D& position, int segments, float radius, void* shader_byte_code, size_t size_shader) : AGameObject(position)
 {
-	CircleRenderer* rend = new CircleRenderer(this, 20);
+	CircleRenderer* rend = new CircleRenderer(this, shader_byte_code, size_shader, segments, radius);
 	this->attachComponent(rend);
 }
 

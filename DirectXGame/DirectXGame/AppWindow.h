@@ -45,17 +45,15 @@ public: //getters
 	SwapChainPtr getSwapChain();
 	VertexShaderPtr getVertexShader();
 	PixelShaderPtr getPixelShader();
-	ConstantBufferPtr getConstantBuffer();
-
+	Camera* getCamera();
+	float getWidth();
+	float getHeight();
 private:
 	SwapChainPtr m_swap_chain = NULL;
 	VertexShaderPtr m_vs = NULL;
 	PixelShaderPtr m_ps = NULL;
-	ConstantBufferPtr m_cb = NULL;
 	
 	CameraManager* m_cm = NULL;
-private: //events list
-	std::list<InputListener*> eventsOnFocus;
-	std::list<InputListener*> eventsOnKillFocus;
+	Camera* cam = NULL;
 };
 

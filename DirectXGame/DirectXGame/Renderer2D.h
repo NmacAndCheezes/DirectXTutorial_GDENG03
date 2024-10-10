@@ -1,19 +1,16 @@
-#include "Component.h"
+#include "Renderer.h"
 #include "Vector3D.h"
 #include "Prerequisites.h"
 
-class Renderer2D : public Component
+class Renderer2D : public Renderer
 {
 public:
-	Renderer2D(AGameObject* obj);
+	Renderer2D(AGameObject* obj, void* shader_byte_code, size_t size_shader);
 	virtual void update() override;
-	virtual void release() override;
+	virtual void draw(AppWindow* target) override;
 	~Renderer2D() {}
 
 protected:
-	VertexBufferPtr m_vb = nullptr;
-	VertexShaderPtr m_vs = nullptr;
-	PixelShaderPtr m_ps = nullptr;
 
 	struct vertex
 	{

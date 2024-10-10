@@ -5,17 +5,16 @@
 
 class AppWindow;
 
-class Camera : /*private InputListener,*/ public AGameObject
+class Camera : public InputListener, public AGameObject
 {
 public:
 	Camera(AppWindow* window, const Vector3D& position);
 	//AGameObject::AGameObject(const Vector3D& position) : m_position(position) { }
 	virtual void update() override;
-	virtual void release() override;
 	~Camera() {}
 
 	//Inherited via InputListener
-#if 0
+#if 1
 	virtual void onKeyDown(int key) override;
 	virtual void onKeyUp(int key) override;
 
@@ -29,6 +28,7 @@ public:
 	virtual void onRightMouseUp(const Point& delta_mouse_pos) override;
 #endif
 
+#if 0
 	virtual void onKeyDown(int key);
 	virtual void onKeyUp(int key);
 
@@ -40,11 +40,12 @@ public:
 
 	virtual void onRightMouseDown(const Point& delta_mouse_pos);
 	virtual void onRightMouseUp(const Point& delta_mouse_pos);
-
-
+#endif
+	Matrix4x4 getViewMatrix();
+	bool getCameraState();
 
 private:
-	Matrix4x4 m_world_cam;
+	Matrix4x4 viewMatrix;
 	AppWindow* m_window = nullptr;
 	float m_rot_x = 0.0f;
 	float m_rot_y = 0.0f;

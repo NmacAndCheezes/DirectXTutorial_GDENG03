@@ -156,6 +156,7 @@
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="Quad.cpp" />
     <ClCompile Include="QuadRenderer.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Renderer2D.cpp" />
     <ClCompile Include="Renderer3D.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="Prerequisites.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="QuadRenderer.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="Renderer2D.h" />
     <ClInclude Include="Renderer3D.h" />
     <ClInclude Include="RenderSystem.h" />

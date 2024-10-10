@@ -14,15 +14,6 @@ void AGameObject::update()
 	}
 }
 
-void AGameObject::release()
-{
-	for (auto c : m_component_list)
-	{
-		c->release();
-	}
-	m_component_list.clear();
-}
-
 void AGameObject::attachComponent(Component* component)
 {
 	m_component_list.push_back(component);
@@ -46,4 +37,14 @@ bool AGameObject::getActive()
 Vector3D AGameObject::position()
 {
 	return m_position;
+}
+
+Vector3D AGameObject::rotation()
+{
+	return m_rotation;
+}
+
+Vector3D AGameObject::scale()
+{
+	return m_scale;
 }
