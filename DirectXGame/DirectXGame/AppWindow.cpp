@@ -21,18 +21,37 @@ struct constant
 	unsigned int m_time = 0;
 };
 
+void AppWindow::spawnCircle(Vector3D pos)
+{
+	std::cout << "Spawned new circle at " << pos.m_x << ", " << pos.m_y << std::endl;
+	Circle* qobj = new Circle(pos);
+	m_circle_num++;
+	AGameObjectManager::get()->registerAGameObject(qobj, "Circle" + std::to_string(m_circle_num));
+	std::cout << "Total circles: " << m_circle_num << std::endl;
+}
+
+void AppWindow::destroyCircle()
+{
+	AGameObjectManager::get()->removeAGameObject("Circle" + std::to_string(m_circle_num));
+	m_circle_num--;
+	if (m_circle_num < 0) m_circle_num = 0;
+	std::cout << "Total circles: " << m_circle_num << std::endl;
+	
+}
+
 void AppWindow::onCreate()
 {
 	Window::onCreate();
 
-	Camera* cam = new Camera(this, Vector3D(0,0,-2));
-	AGameObjectManager::get()->registerAGameObject(cam);
+	cam = new Camera(this, Vector3D(0,0,-2));
+	AGameObjectManager::get()->registerAGameObject(cam, "Cam1");
 	
+#if 0
 	Camera* cam2 = new Camera(this, Vector3D(1, 0, -2));
-	AGameObjectManager::get()->registerAGameObject(cam2);
+	AGameObjectManager::get()->registerAGameObject(cam2, "Cam2");
 
 	Camera* cam3 = new Camera(this, Vector3D(-1, 0, -2));
-	AGameObjectManager::get()->registerAGameObject(cam3);
+	AGameObjectManager::get()->registerAGameObject(cam3, "Cam3");
 	
 	m_cm = new CameraManager();
 
@@ -40,7 +59,8 @@ void AppWindow::onCreate()
 	m_cm->registerCamera(cam2);
 	m_cm->registerCamera(cam3);
 	m_cm->ChangeCam(1);
-	InputSystem::get()->addListner(m_cm);
+#endif
+	//InputSystem::get()->addListner(m_cm);
 	InputSystem::get()->addListner(this);
 	InputSystem::get()->showCursor(false);
 	GraphicsEngine::get()->initialize();
@@ -52,14 +72,7 @@ void AppWindow::onCreate()
 
 	m_cb = GraphicsEngine::get()->getRenderSystem()->createConstantBuffer(&cc, sizeof(constant));
 
-	Cube* cobj = new Cube(Vector3D(1.5f,0,0));
-	AGameObjectManager::get()->registerAGameObject(cobj);
-
-	Circle* qobj = new Circle(Vector3D(0, 0, 0));
-	AGameObjectManager::get()->registerAGameObject(qobj);
-
-	cobj = new Cube(Vector3D(-1.5, 0, 0));
-	AGameObjectManager::get()->registerAGameObject(cobj);
+	spawnCircle(Vector3D(0,0,0));
 }
 
 void AppWindow::onUpdate()
@@ -91,20 +104,49 @@ void AppWindow::onDestroy()
 
 void AppWindow::onKeyDown(int key)
 {
+	if (isHoldingDownBtn) return;
+	isHoldingDownBtn = true;
 	if (key == VK_ESCAPE)
 	{
 		m_is_run = false;
 	}
+
+	if (key == ' ')
+	{
+		float x = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+		float y = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+		spawnCircle(Vector3D((x - 0.5f) * 2, (y - 0.5f) * 2, 0));
+	}
+	if (key == VK_BACK)
+	{
+		destroyCircle();
+	}
+	if (key == VK_DELETE)
+	{
+		for (int i = 1; i <= m_circle_num; i++)
+		{
+			AGameObjectManager::get()->removeAGameObject("Circle" + std::to_string(i));
+		}
+
+		m_circle_num = 0;
+	}
+}
+
+void AppWindow::onKeyUp(int key)
+{
+	if (!isHoldingDownBtn) return;
+	isHoldingDownBtn = false;
+	
 }
 
 void AppWindow::onFocus()
 {
-	m_cm->onFocus();
+	//cam->onFocus();
 }
 
 void AppWindow::onKillFocus()
 {
-	m_cm->onKillFocus();
+	//cam->onKillFocus();
 }
 
 SwapChainPtr AppWindow::getSwapChain()

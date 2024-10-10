@@ -48,7 +48,7 @@ private:
 	AppWindow* m_window = nullptr;
 	float m_rot_x = 0.0f;
 	float m_rot_y = 0.0f;
-	bool isPerspective = true;
+	bool isPerspective = false;
 	bool isHoldingC = false;
 	
 	float m_forward = 0.0f;

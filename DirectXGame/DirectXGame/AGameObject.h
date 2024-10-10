@@ -25,7 +25,7 @@ private:
 protected:
 	Vector3D m_position = Vector3D();
 	Matrix4x4 transform_matrix;
-
+	std::string name;
 	__declspec(align(16))
 		struct constant
 	{

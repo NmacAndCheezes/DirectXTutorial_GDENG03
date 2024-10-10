@@ -14,7 +14,7 @@ void EngineTime::destroy()
 
 double EngineTime::getDeltaTime()
 {
-	return sharedInstance->deltaTime;
+	return 1.f / 60.f;
 }
 
 void EngineTime::LogFrameStart()

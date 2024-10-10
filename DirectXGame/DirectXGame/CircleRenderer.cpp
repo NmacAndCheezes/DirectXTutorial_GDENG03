@@ -30,8 +30,8 @@ CircleRenderer::CircleRenderer(AGameObject* obj, int segments) : Renderer2D(obj)
 	for (int i = 0; i < segments; i++)
 	{
 		float theta = 2.0f * 3.1415926f * float(i) / float(segments);
-		float x = 1.f * cosf(theta);
-		float y = 1.f * sinf(theta);
+		float x = 0.1f * cosf(theta);
+		float y = 0.1f * sinf(theta);
 		vertex_list.push_back({ Vector3D(x, y, 0.0f), Vector3D(1,1,1), Vector3D(1,1,1) }); // Assuming a simple Vertex structure
 	}
 

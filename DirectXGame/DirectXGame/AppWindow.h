@@ -18,7 +18,8 @@ public:
 	AppWindow() {};
 
 	//void update();
-
+	void spawnCircle(Vector3D pos);
+	void destroyCircle();
 	~AppWindow() {};
 
 	//Inherited via Window
@@ -27,7 +28,7 @@ public:
 	virtual void onDestroy() override;
 
 	virtual void onKeyDown(int key) override;
-	virtual void onKeyUp(int key) override {};
+	virtual void onKeyUp(int key) override;
 
 	//Mouse
 	virtual void onMouseMove(const Point& mouse_pos) override {};
@@ -55,7 +56,8 @@ private:
 	
 	CameraManager* m_cm = NULL;
 private: //events list
-	std::list<InputListener*> eventsOnFocus;
-	std::list<InputListener*> eventsOnKillFocus;
+	Camera* cam = NULL;
+	int m_circle_num = 0;
+	bool isHoldingDownBtn = false;
 };
 

@@ -1,18 +1,6 @@
-﻿  CircleRenderer.cpp
-C:\Users\Student\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Matrix4x4.h(154,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'CircleRenderer.cpp')
-  
-C:\Users\Student\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Matrix4x4.h(155,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'CircleRenderer.cpp')
-  
-C:\Users\Student\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Matrix4x4.h(156,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'CircleRenderer.cpp')
-  
-C:\Users\Student\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Matrix4x4.h(157,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'CircleRenderer.cpp')
-  
-C:\Users\Student\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\CircleRenderer.cpp(39,17): warning C4267: 'initializing': conversion from 'size_t' to 'UINT', possible loss of data
-C:\Users\Student\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\CircleRenderer.cpp(40,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Student\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\CircleRenderer.cpp(69,23): warning C4267: 'initializing': conversion from 'size_t' to 'UINT', possible loss of data
-C:\Users\Student\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\CircleRenderer.cpp(79,135): warning C4267: 'argument': conversion from 'size_t' to 'UINT', possible loss of data
-  DirectXGame.vcxproj -> C:\Users\Student\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\x64\Debug\DirectXGame.exe
+﻿  AppWindow.cpp
+C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Matrix4x4.h(154,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Matrix4x4.h(155,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Matrix4x4.h(156,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\DirectXGame\Matrix4x4.h(157,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  DirectXGame.vcxproj -> C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\x64\Debug\DirectXGame.exe

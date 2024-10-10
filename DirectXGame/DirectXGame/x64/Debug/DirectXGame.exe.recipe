@@ -2,12 +2,12 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\Student\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\x64\Debug\DirectXGame.exe</FullPath>
+      <FullPath>C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\x64\Debug\DirectXGame.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>C:\Users\Student\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\x64\Debug\ShapeVertexShader.cso</FullPath>
+      <FullPath>C:\Users\Nathan\Documents\GitHub\DirectXTutorial_GDENG03\DirectXGame\x64\Debug\ShapeVertexShader.cso</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />
