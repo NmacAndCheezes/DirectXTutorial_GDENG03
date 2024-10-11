@@ -105,7 +105,10 @@ void AppWindow::onDestroy()
 void AppWindow::onKeyDown(int key)
 {
 	if (isHoldingDownBtn) return;
+
 	isHoldingDownBtn = true;
+
+	//stop game runnning
 	if (key == VK_ESCAPE)
 	{
 		m_is_run = false;

@@ -142,7 +142,7 @@ bool Window::broadcast()
 		DispatchMessage(&msg);
 	}
 
-	Sleep(1);
+	//Sleep(1);
 	EngineTime::LogFrameEnd();
 	std::cout << "FPS: " << 1.f / EngineTime::getDeltaTime() << std::endl;
 	return true;
