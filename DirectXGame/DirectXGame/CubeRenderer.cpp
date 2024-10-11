@@ -10,7 +10,7 @@
 #include "AGameObject.h"
 #include <iostream>
 
-CubeRenderer::CubeRenderer(AGameObject* obj, void* shader_byte_code, size_t size_shader) : Renderer3D(obj, shader_byte_code, size_shader)
+CubeRenderer::CubeRenderer(AGameObject* obj) : Renderer3D(obj)
 {
 #if 1
 	vertex vertex_list[] =
@@ -29,9 +29,19 @@ CubeRenderer::CubeRenderer(AGameObject* obj, void* shader_byte_code, size_t size
 		{ Vector3D(-0.5f,-0.5f,0.5f),     Vector3D(0,1,0), Vector3D(0,0.2f,0) }
 	};
 #endif
+	void* shader_byte_code = nullptr;
+	size_t size_shader = 0;
+	GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
+	m_vs = GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
 
 	UINT size_list = ARRAYSIZE(vertex_list);
 	m_vb = GraphicsEngine::get()->getRenderSystem()->createVertexBuffer(vertex_list, sizeof(vertex), size_list, shader_byte_code, size_shader);
+
+#pragma region PixelShader
+	GraphicsEngine::get()->getRenderSystem()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
+	m_ps = GraphicsEngine::get()->getRenderSystem()->createPixelShader(shader_byte_code, size_shader);
+	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
+#pragma endregion
 #if 0
 	for (int i = 0; i < size_list; i++)
 	{
@@ -126,8 +136,11 @@ void CubeRenderer::draw(AppWindow* target)
 
 	this->m_cb->update(deviceContext, &cc);
 
-	deviceContext->setConstantBuffer(target->getVertexShader(), m_cb);
-	deviceContext->setConstantBuffer(target->getPixelShader(), m_cb);
+	deviceContext->setVertexShader(this->m_vs);
+	deviceContext->setPixelShader(this->m_ps);
+
+	deviceContext->setConstantBuffer(this->m_vs, m_cb);
+	deviceContext->setConstantBuffer(this->m_ps, m_cb);
 
 	//deviceContext->setIndexBuffer(this->indexBuffer);
 	deviceContext->setVertexBuffer(m_vb);

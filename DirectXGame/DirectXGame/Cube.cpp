@@ -6,16 +6,16 @@
 #include "CubeRenderer.h"
 #include <iostream>
 
-Cube::Cube(void* shader_byte_code, size_t size_shader) : AGameObject()
+Cube::Cube() : AGameObject()
 {
-	CubeRenderer* rend = new CubeRenderer(this, shader_byte_code, size_shader);
+	CubeRenderer* rend = new CubeRenderer(this);
 	this->attachComponent(rend);
 }
 
-Cube::Cube(const Vector3D& position, void* shader_byte_code, size_t size_shader) : AGameObject(position)
+Cube::Cube(const Vector3D& position) : AGameObject(position)
 {
 	//std::cout << position.m_x << " " << position.m_y << " " << position.m_z << "\n";
-	CubeRenderer* rend = new CubeRenderer(this, shader_byte_code, size_shader);
+	CubeRenderer* rend = new CubeRenderer(this);
 	this->attachComponent(rend);
 }
 

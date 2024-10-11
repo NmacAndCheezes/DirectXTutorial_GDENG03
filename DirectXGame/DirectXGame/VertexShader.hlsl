@@ -36,5 +36,6 @@ VS_OUTPUT vsmain(VS_INPUT input)
 
 	output.color = input.color;
 	output.color1 = input.color1;
+
 	return output;
 }

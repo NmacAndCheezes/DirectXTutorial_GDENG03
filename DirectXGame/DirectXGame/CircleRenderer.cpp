@@ -11,8 +11,8 @@
 #include <iostream>
 #include <vector>
 
-CircleRenderer::CircleRenderer(AGameObject* obj, void* shader_byte_code, size_t size_shader, int segments, float radius) 
-	: Renderer2D(obj, shader_byte_code, size_shader)
+CircleRenderer::CircleRenderer(AGameObject* obj, int segments, float radius) 
+	: Renderer2D(obj)
 {
 	std::vector<vertex> vertex_list;
 	vertex_list.push_back({ Vector3D(0.f, 0.f, 0.0f), Vector3D(1,1,1), Vector3D(1,1,1) });
@@ -23,11 +23,20 @@ CircleRenderer::CircleRenderer(AGameObject* obj, void* shader_byte_code, size_t 
 		float y = radius * sinf(theta);
 		vertex_list.push_back({ Vector3D(x, y, 0.0f), Vector3D(1,1,1), Vector3D(1,1,1) }); // Assuming a simple Vertex structure
 	}
-
+	void* shader_byte_code = nullptr;
+	size_t size_shader = 0;
+	GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
+	m_vs = GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
 
 	UINT size_list = vertex_list.size();
 	m_vb = GraphicsEngine::get()->getRenderSystem()->createVertexBuffer(vertex_list.data(), sizeof(vertex), size_list, shader_byte_code, size_shader);
 	std::cout << shader_byte_code << " ," << size_shader << std::endl;
+
+#pragma region PixelShader
+	GraphicsEngine::get()->getRenderSystem()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
+	m_ps = GraphicsEngine::get()->getRenderSystem()->createPixelShader(shader_byte_code, size_shader);
+	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
+#pragma endregion
 
 	std::vector<unsigned int> index_list;
 	for (int i = 1; i <= segments; i++)
@@ -95,13 +104,15 @@ void CircleRenderer::draw(AppWindow* target)
 	{
 		cc.m_proj.setOrthoLH(target->getWidth() / 400.0f, target->getHeight() / 400.0f, -4.0f, 4.0f);
 	}
-	
 	this->m_cb->update(deviceContext, &cc);
 
-	deviceContext->setConstantBuffer(target->getVertexShader(), m_cb);
-	deviceContext->setConstantBuffer(target->getPixelShader(), m_cb);
+	deviceContext->setVertexShader(this->m_vs);
+	deviceContext->setPixelShader(this->m_ps);
 
 	//cc.m_proj.printMatrix();
+	deviceContext->setConstantBuffer(m_vs, m_cb);
+	deviceContext->setConstantBuffer(m_ps, m_cb);
+
 	//deviceContext->setIndexBuffer(this->indexBuffer);
 	deviceContext->setVertexBuffer(m_vb);
 

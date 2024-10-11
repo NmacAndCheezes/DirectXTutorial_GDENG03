@@ -43,16 +43,13 @@ public:
 
 public: //getters
 	SwapChainPtr getSwapChain();
-	VertexShaderPtr getVertexShader();
-	PixelShaderPtr getPixelShader();
+	//VertexShaderPtr getVertexShader();
+	//PixelShaderPtr getPixelShader();
 	Camera* getCamera();
 	float getWidth();
 	float getHeight();
 private:
-	SwapChainPtr m_swap_chain = NULL;
-	VertexShaderPtr m_vs = NULL;
-	PixelShaderPtr m_ps = NULL;
-	
+	SwapChainPtr m_swap_chain = NULL;	
 	CameraManager* m_cm = NULL;
 	Camera* cam = NULL;
 };

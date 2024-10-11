@@ -5,7 +5,7 @@
 class CircleRenderer : public Renderer2D
 {
 public:
-	CircleRenderer(AGameObject* obj, void* shader_byte_code, size_t size_shader, int segments, float radius);
+	CircleRenderer(AGameObject* obj, int segments, float radius);
 	virtual void update() override;
 	virtual void draw(AppWindow* target) override;
 	~CircleRenderer() {}

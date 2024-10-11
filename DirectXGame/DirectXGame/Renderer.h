@@ -8,7 +8,7 @@ class AGameObject;
 class Renderer : public Component
 {
 public:
-	Renderer(AGameObject* obj, void* shader_byte_code, size_t size_shader);
+	Renderer(AGameObject* obj);
 	virtual void draw(AppWindow* target);
 	~Renderer() {}
 	
@@ -16,6 +16,15 @@ protected:
 	Matrix4x4 transform_matrix;
 	VertexBufferPtr m_vb = nullptr;
 	ConstantBufferPtr m_cb = nullptr;
+	VertexShaderPtr m_vs = NULL;
+	PixelShaderPtr m_ps = NULL;
+	
+	struct vertex
+	{
+		Vector3D position;
+		Vector3D color;
+		Vector3D color1;
+	};
 
 	__declspec(align(16))
 		struct constant

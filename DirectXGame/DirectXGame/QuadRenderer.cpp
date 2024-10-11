@@ -10,7 +10,7 @@
 #include "AGameObject.h"
 #include <iostream>
 
-QuadRenderer::QuadRenderer(AGameObject* obj, void* shader_byte_code, size_t size_shader) : Renderer2D(obj, shader_byte_code, size_shader)
+QuadRenderer::QuadRenderer(AGameObject* obj) : Renderer2D(obj)
 {
 #if 1
 	vertex vertex_list[] =
@@ -39,10 +39,20 @@ QuadRenderer::QuadRenderer(AGameObject* obj, void* shader_byte_code, size_t size
 		//std::cout << attachedObject->posX() << " " << attachedObject->posY() << " " << attachedObject->posZ() << " " << "\n";
 	}
 #endif
+	void* shader_byte_code = nullptr;
+	size_t size_shader = 0;
+	GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
+	m_vs = GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
 
 	m_vb = GraphicsEngine::get()->getRenderSystem()->createVertexBuffer(vertex_list, sizeof(vertex), size_list, shader_byte_code, size_shader);
 	std::cout << m_vb << std::endl;
 	GraphicsEngine::get()->getRenderSystem()->registerRenderer(this);
+
+#pragma region PixelShader
+	GraphicsEngine::get()->getRenderSystem()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
+	m_ps = GraphicsEngine::get()->getRenderSystem()->createPixelShader(shader_byte_code, size_shader);
+	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
+#pragma endregion
 }
 
 
@@ -53,6 +63,9 @@ void QuadRenderer::update()
 
 void QuadRenderer::draw(AppWindow* target)
 {
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexShader(this->m_vs);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(this->m_ps);
+
 	GraphicsEngine* graphEngine = GraphicsEngine::get();
 	DeviceContextPtr deviceContext = graphEngine->getRenderSystem()->getImmediateDeviceContext();
 
@@ -90,8 +103,11 @@ void QuadRenderer::draw(AppWindow* target)
 	cc.m_proj.printMatrix();
 	this->m_cb->update(deviceContext, &cc);
 
-	deviceContext->setConstantBuffer(target->getVertexShader(), m_cb);
-	deviceContext->setConstantBuffer(target->getPixelShader(), m_cb);
+	deviceContext->setVertexShader(this->m_vs);
+	deviceContext->setPixelShader(this->m_ps);
+
+	deviceContext->setConstantBuffer(this->m_vs, m_cb);
+	deviceContext->setConstantBuffer(this->m_ps, m_cb);
 
 	//deviceContext->setIndexBuffer(this->indexBuffer);
 	deviceContext->setVertexBuffer(m_vb);

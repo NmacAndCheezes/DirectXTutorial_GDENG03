@@ -2,7 +2,7 @@
 #include "RenderSystem.h"
 #include "GraphicsEngine.h"
 
-Renderer::Renderer(AGameObject* obj, void* shader_byte_code, size_t size_shader) : Component(obj)
+Renderer::Renderer(AGameObject* obj) : Component(obj)
 {
 	constant cc;
 	cc.m_time = 0;

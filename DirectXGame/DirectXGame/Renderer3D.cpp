@@ -8,7 +8,7 @@
 #include "DeviceContext.h"
 #include "AppWindow.h"
 
-Renderer3D::Renderer3D(AGameObject* obj, void* shader_byte_code, size_t size_shader) : Renderer(obj, shader_byte_code, size_shader)
+Renderer3D::Renderer3D(AGameObject* obj) : Renderer(obj)
 {
 }
 
