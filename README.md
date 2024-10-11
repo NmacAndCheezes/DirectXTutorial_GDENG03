@@ -1,3 +1,5 @@
-# DirectXTutorial_GDENG03
- this is for the tutorial for GDENG03
+# Submission for Seatwork + HO - DirectX Familiarity
+ Includes:
+  - video
+  - source codes
 
